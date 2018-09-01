@@ -3,32 +3,34 @@ class Boids {
     //Each BOID is represented by a position
     this.x = x || 0;
     this.y = y || 0;
-
+    //delta distance
     this.dx = 0;
     this.dy = 0;
-
+    this.maxDist;
+    //speed
     this.speed = (1, 1);
     this.maxSpeed = (2, 2);
-
+    this.acceleration = (0, 0);
+    //forces equilibrium
     this.sepWeight = 0.5;
     this.cohWeight = 0.5;
     this.aliWeight = 0.5;
-
-    this.maxDist;
   }
+
   //Return the position coordinates of the void
   pos() {
     return this.x, this.y;
   }
-  set (x, y) {
-    this.x = x;
-    this.y = y;
+  set(nX, nY) {
+    this.x = nX;
+    this.y = nY;
     return this;
-  },
+  }
+
   //Vector operations
   length() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
-  },
+  }
   add(v) {
     this.x += v.x;
     this.y += v.y;
@@ -56,6 +58,7 @@ class Boids {
     this.y *= -1;
     return this;
   }
+
   //Get data
   initialize() {
     this.speed.x += (Math.random() - 0.5) * 2;
@@ -68,17 +71,26 @@ class Boids {
   getOther() {
     return other;
   }
+
   //Forces
   separation() {}
   cohesion() {}
   alignment() {}
   getTotalAcceleration() {}
   modifyAcceleration(a) {}
+
   //Animation
   move() {}
+  draw() {
+    var size = 2;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
+//End of Class
 
-//Other math
+//Other Math
 function getAngle(a, b) {
   var dx = b.x - a.x;
   var dy = b.y - a.y;

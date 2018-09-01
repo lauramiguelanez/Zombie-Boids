@@ -16,7 +16,7 @@ Run.prototype.start = function() {
 
       this.framesCounter++;
 
-      // controlamos que frameCounter no sea superior a 1000
+      //FrameCounter max 1000
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
@@ -31,25 +31,37 @@ Run.prototype.start = function() {
   );
 };
 
-/* Run.prototype.stop = function() {
+Run.prototype.stop = function() {
   clearInterval(this.interval);
-}; */
+};
 
-/* Run.prototype.gameOver = function() {
+Run.prototype.gameOver = function() {
   this.stop();
 
   if (confirm("GAME OVER. Run again?")) {
     this.reset();
     this.start();
   }
-}; */
+};
 
+Run.prototype.clear = function() {
+  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+};
+
+////Actualize!!!
 /* Run.prototype.reset = function() {
-  this.background = new Background(this);
   this.player = new Player(this);
   this.framesCounter = 0;
-  this.obstacles = [];
   this.score = 0;
+}; */
+
+/* Run.prototype.draw = function() {
+  this.background.draw();
+  this.player.draw();
+  this.obstacles.forEach(function(obstacle) {
+    obstacle.draw();
+  });
+  this.drawScore();
 }; */
 
 /* Run.prototype.isCollision = function() {
@@ -66,29 +78,6 @@ Run.prototype.start = function() {
   );
 }; */
 
-/* Run.prototype.clearObstacles = function() {
-  this.obstacles = this.obstacles.filter(function(obstacle) {
-    return obstacle.x >= 0;
-  });
-}; */
-
-/* Run.prototype.generateObstacle = function() {
-  this.obstacles.push(new Obstacle(this));
-}; */
-/* 
-Run.prototype.clear = function() {
-  this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-}; */
-
-/* Run.prototype.draw = function() {
-  this.background.draw();
-  this.player.draw();
-  this.obstacles.forEach(function(obstacle) {
-    obstacle.draw();
-  });
-  this.drawScore();
-}; */
-
 /* Run.prototype.moveAll = function() {
   this.background.move();
   this.player.move();
@@ -97,9 +86,23 @@ Run.prototype.clear = function() {
   });
 }; */
 
-/* Run.prototype.drawScore = function() {
+Run.prototype.drawScore = function() {
   this.ctx.font = "30px sans-serif";
-  this.ctx.fillStyle = "green";
+  this.ctx.fillStyle = "black";
   this.ctx.fillText(Math.floor(this.score), 50, 50);
 };
- */
+
+
+
+Run.prototype.birthBoids = function(){
+  for (var i = 0; i < 500; i++) {
+    var boid = new Boid(Math.random() * this.canvas.width, Math.random() * this.canvas.height);
+
+    boid.acceleration = new Boid(0, 0);
+
+    boid.speed = new Boid(Math.random() - 0.5, Math.random() - 0.5);
+    boid.maxSpeed = new Boid(2, 2);
+
+    boids.push(boid);
+  }
+}
