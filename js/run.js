@@ -7,7 +7,6 @@ function Run(canvadId) {
   this.reset();
 }
 
-
 //Start gets the animations going
 Run.prototype.start = function() {
   this.interval = setInterval(
@@ -49,11 +48,33 @@ Run.prototype.clear = function() {
 };
 
 ////Actualize!!!
-/* Run.prototype.reset = function() {
-  this.player = new Player(this);
+
+Run.prototype.reset = function() {
+  var boid,x,y;
+  this.boids = [];
+  for (var i = 0; i < 50; i++) {
+    //generate boids in random position
+    x = Math.random() * this.canvas.width;
+    y = Math.random() * this.canvas.height
+    boid = new Boid (x, y);
+    boid.acceleration = (0, 0);
+    boid.speed = (Math.random() - 0.5, Math.random() - 0.5);
+    boid.maxSpeed = (2, 2);
+  /*   boid.acceleration = new Boid(0, 0);
+    boid.speed = new Boid (Math.random() - 0.5, Math.random() - 0.5);
+    boid.maxSpeed = new Boid (2, 2); */
+
+
+    boids.push(boid);
+  };
+  boids.forEach(function(boid) {
+    boid.draw();
+    console.log(boy.x,boid.y);
+  });
+
   this.framesCounter = 0;
   this.score = 0;
-}; */
+};
 
 /* Run.prototype.draw = function() {
   this.background.draw();
@@ -91,18 +112,3 @@ Run.prototype.drawScore = function() {
   this.ctx.fillStyle = "black";
   this.ctx.fillText(Math.floor(this.score), 50, 50);
 };
-
-
-
-Run.prototype.birthBoids = function(){
-  for (var i = 0; i < 500; i++) {
-    var boid = new Boid(Math.random() * this.canvas.width, Math.random() * this.canvas.height);
-
-    boid.acceleration = new Boid(0, 0);
-
-    boid.speed = new Boid(Math.random() - 0.5, Math.random() - 0.5);
-    boid.maxSpeed = new Boid(2, 2);
-
-    boids.push(boid);
-  }
-}
