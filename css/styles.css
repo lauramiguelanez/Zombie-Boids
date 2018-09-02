@@ -1,0 +1,29 @@
+/*bermellón: #ff3600;*/
+@import url('https://fonts.googleapis.com/css?family=Nova+Cut');
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
+body{
+    display:flex;
+    align-content: center;
+    background-color: black;
+    font-family: 'Nova Cut', cursive;
+    /*font-family: 'Abel', sans-serif;*/
+}
+canvas{
+    border: 1px solid #ff3600;
+}
+p{
+    color: #ff3600;
+    display: inline-block;
+    text-align: center;
+}
+#window{
+    display:flex;
+    flex-direction: column;
+    align-content: center;
+}
+.data{
+    display:flex;
+    justify-content: center;
+    align-content: center;
+}
