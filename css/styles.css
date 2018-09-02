@@ -1,29 +1,55 @@
 /*bermellón: #ff3600;*/
-@import url('https://fonts.googleapis.com/css?family=Nova+Cut');
-@import url('https://fonts.googleapis.com/css?family=Abel');
+@import url("https://fonts.googleapis.com/css?family=Nova+Cut");
+@import url("https://fonts.googleapis.com/css?family=Abel");
 
-body{
-    display:flex;
-    align-content: center;
-    background-color: black;
-    font-family: 'Nova Cut', cursive;
-    /*font-family: 'Abel', sans-serif;*/
+body {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  background-color: black;
+  font-family: "Nova Cut", cursive;
+  /*font-family: 'Abel', sans-serif;*/
+  max-height: 100%;
+  overflow: hidden;
 }
-canvas{
-    border: 1px solid #ff3600;
+canvas {
+  border: 4px solid #ff3600;
 }
-p{
-    color: #ff3600;
-    display: inline-block;
-    text-align: center;
+p {
+  color: #ff3600;
+  display: inline-block;
+  text-align: center;
 }
-#window{
-    display:flex;
-    flex-direction: column;
-    align-content: center;
+#window {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  border: 1px solid #000;
 }
-.data{
-    display:flex;
-    justify-content: center;
-    align-content: center;
+.data {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.data-top {
+}
+.data-h-container {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+.data-right {
+  width: 50px;
+  writing-mode: vertical-rl;
+    text-orientation: mixed;
+}
+.data-left {
+  width: 50px;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+}
+.data-bottom {
+}
+aside{
+  width: 220px;
 }
