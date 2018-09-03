@@ -5,9 +5,9 @@ class Boid {
     this.x = x || 0;
     this.y = y || 0;
     //delta movimiento
-    this.dx = 1;
-    this.dy = 1;
-    this.maxDist;
+    this.dx = 0;
+    this.dy = 0;
+    this.maxDist = 40;
     //speed
     this.speed = (1, 1);
     this.maxSpeed = (2, 2);
@@ -26,74 +26,74 @@ class Boid {
     this.y = nY;
     return this;
   }
+  direction() {
+    return this.dx, this.dy;
+  }
   //Vector operations
-  length() {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
-  }
-  add(v) {
-    this.x += v.x;
-    this.y += v.y;
-    return this;
-  }
-  sub(v) {
-    this.x -= v.x;
-    this.y -= v.y;
-    return this;
-  }
-  normalize(a) {
-    var l = this.length();
-    this.x /= l;
-    this.y /= l;
-    if (value != null)
-      this.multiplyScalar(value);
-    return this;
-  }
-  multiplyScalar(a) {
-    this.x *= a;
-    this.y *= a;
-    return this;
-  }
-  negate() {
-    this.x *= -1;
-    this.y *= -1;
-    return this;
-  }
+
   //Get data
   initialize() {
     this.speed.x += (Math.random() - 0.5) * 2;
     this.speed.y += (Math.random() - 0.5) * 2;
   }
-  getDistance(other) {
-    this.dx = this.x - other.x;
-    this.dy = this.y - other.y;
+  getDist(boid, other) {
+    distX = boid.x - other.x;
+    distY = boid.y - other.y;
+    return Math.sqrt(distX ^ (2 + distY) ^ 2);
   }
   getOther() {
     return other;
   }
   //Forces
-  separation() { }
-  cohesion() { }
-  alignment() { }
-  getTotalAcceleration() { }
-  modifyAcceleration(a) { }
+  separate() {
+    this.sepV = new Vector(0, 0);
+
+    this.run.boids.forEach(function(boid, index, boids) {
+      var distX, distY, eachDist;
+      for (var i = index + 1; i < boids.length; i++) {
+        distX = boid.x - boids[i].x;
+        distY = boid.y - boids[i].y;
+        eachDist = Math.sqrt(distX ^ (2 + distY) ^ 2);
+        if (eachDist <= boid.maxDist) {
+          return distX, distY;
+        } else {
+          return 0, 0;
+        }
+      }
+      this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
+      return this.sepV;
+    });
+  }
+  cohere() {
+    this.cohWeight;
+  }
+  align() {
+    this.aliWeight;
+  }
+  getTotalAcceleration() {}
+  modifyAcceleration(a) {}
   //Animation
   move() {
+    //this.separate();
+    this.dx = Math.random();
+    this.dy = Math.random();
+
     this.x += this.dx;
     this.y += this.dy;
-    
+
     if (this.x < 0) {
-			this.x = this.run.canvas.width;
-		}
-		if (this.x > this.run.canvas.width) {
-			this.x = 0;
-		}
-		if (this.y < 0) {
-			this.y = this.run.canvas.height;
-		}
-		if (this.y > this.run.canvas.height) {
-			this.y = 0;
-		}
-  };
+      this.x = this.run.canvas.width;
+    }
+    if (this.x > this.run.canvas.width) {
+      this.x = 0;
+    }
+    if (this.y < 0) {
+      this.y = this.run.canvas.height;
+    }
+    if (this.y > this.run.canvas.height) {
+      this.y = 0;
+    }
+  }
   draw() {
     var size = 2;
     this.run.ctx.fillStyle = "#ff3600";

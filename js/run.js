@@ -22,16 +22,6 @@ class Run {
       this.drawAll();
     }.bind(this), 1000 / this.fps);
   }
- /*  stop() {
-    clearInterval(this.interval);
-  } */
-/*   gameOver() {
-    this.stop();
-    if (confirm("GAME OVER. Run again?")) {
-      this.reset();
-      this.start();
-    }
-  } */
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     //this.ctx.fillStyle = "#FA959F";
@@ -43,7 +33,7 @@ class Run {
       var y = Math.random() * this.canvas.height;
       this.boid = new Boid(x, y, this);
       this.boid.acceleration = (0, 0);
-      this.boid.speed = (Math.random() - 0.5, Math.random() - 0.5);
+      //this.boid.speed = (Math.random() - 0.5, Math.random() - 0.5);
       /*   this.boid.maxSpeed = (2, 2);
       this.boid.acceleration = new Boid(0, 0);
       this.boid.speed = new Boid (Math.random() - 0.5, Math.random() - 0.5);
@@ -59,6 +49,16 @@ class Run {
     });
     //this.drawScore();
   }
+   /*  stop() {
+    clearInterval(this.interval);
+  } */
+/*   gameOver() {
+    this.stop();
+    if (confirm("GAME OVER. Run again?")) {
+      this.reset();
+      this.start();
+    }
+  } */
 /*   isCollision() {
     // colisiones genéricas
     // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
