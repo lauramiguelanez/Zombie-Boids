@@ -1,47 +1,40 @@
-class Vector {
-  constructor(x, y) {
+var Vector = function (x, y) {
     this.x = x;
     this.y = y;
-  }
+  };
 
-  set(nX, nY) {
+  Vector.prototype.set = function (nX, nY) {
     this.x = nX;
     this.y = nY;
     return this;
-  }
-  length() {
+  };
+  Vector.prototype.length = function () {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
-  }
-  add(v) {
+  };
+  Vector.prototype.add = function (v) {
     this.x += v.x;
     this.y += v.y;
     return this;
-  }
-  sub(v) {
+  };
+  Vector.prototype.sub = function (v) {
     this.x -= v.x;
     this.y -= v.y;
     return this;
-  }
-  normalize(a) {
+  };
+  Vector.prototype.normalize = function (a) {
     var l = this.length();
-    if (l != 0) {
-      this.x /= l;
-      this.y /= l;
-    } else {
-      this.x = 0;
-      this.y = 0;
-    }
+    (l == 0) ? this.x = 0 : this.x /= l;
+    (l == 0) ? this.y = 0 : this.y /= l;
     if (!a) this.multiplyScalar(a);
     return this;
-  }
-  multiplyScalar(a) {
+  };
+  Vector.prototype.multiplyScalar = function (a) {
     this.x *= a;
     this.y *= a;
     return this;
-  }
-  negate() {
+  };
+  Vector.prototype.negate = function () {
     this.x *= -1;
     this.y *= -1;
     return this;
-  }
-}
+  };
