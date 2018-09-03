@@ -18,7 +18,7 @@ class Boid {
     this.aliV = new Vector(1, 1);
     this.accV = new Vector(1, 1);
     //forces equilibrium
-    this.sepWeight = 0.5;
+    this.sepWeight = 1;
     this.cohWeight = 0.5;
     this.aliWeight = 0.5;
   }
@@ -53,9 +53,9 @@ class Boid {
   separate() {
     this.run.boids.forEach(function(boid, index, boids) {
       for (var i = index + 1; i < boids.length; i++) {
-        if (boid.pos() !== boids[i].pos()) {
-          boid.sepV.x -= 1 / (boid.x - boids[i].x);
-          boid.sepV.y -= 1 / (boid.y - boids[i].y);
+        if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
+          boid.sepV.x += 2 / (boid.x - boids[i].x);
+          boid.sepV.y += 2 / (boid.y - boids[i].y);
         } else {
           boid.sepV.x += 0;
           boid.sepV.y += 0;
@@ -88,10 +88,12 @@ class Boid {
     this.dy = (this.getTotalAcceleration()).y; */
     this.dx = this.getTotalAcceleration().x;
     this.dy = this.getTotalAcceleration().y;
-    /* this.dx = Math.random();
-    this.dy = Math.random(); */
+    this.dx += Math.random() * 2 - 1;
+    this.dy += Math.random() * 2 - 1;
     this.x += this.dx;
     this.y += this.dy;
+
+    console.log(this.x, this.y);
 
     if (this.x < 0) {
       this.x = this.run.canvas.width;
