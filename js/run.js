@@ -3,7 +3,7 @@ class Run {
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
-    this.fps = 60;
+    this.fps = 10;
     this.boids = [];
     this.reset();
   }
@@ -21,9 +21,9 @@ class Run {
         //Move & Draw
         this.moveAll();
         this.drawAll();
-        this.boids[1].cohere();
+        
       }.bind(this),
-      1000 / this.fps
+      100 / this.fps
     );
   }
   clear() {
