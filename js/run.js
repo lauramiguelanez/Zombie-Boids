@@ -58,18 +58,7 @@ class Run {
     });
     //this.drawScore();
   }
-/*   getRange() {
-    this.boids.forEach(function(boid, index, boids) {
-      var distance = [];
-      var d = 0;
-      for (var i = index + 1; i < boids.length; i++) {
-        d = boid.getDist(boid, boids[i]);
-        if (d <= this.range) {
-          distance.push();
-        }
-      }
-    });
-  } */
+
 
   /*  stop() {
     clearInterval(this.interval);

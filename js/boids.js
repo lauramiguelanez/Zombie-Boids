@@ -12,6 +12,11 @@ class Boid {
     this.speed = (1, 1);
     this.maxSpeed = (2, 2);
     this.acceleration = (0, 0);
+    //forces
+    this.sepV = new Vector(1, 1);
+    this.cohV = new Vector(1, 1);
+    this.aliV = new Vector(1, 1);
+    this.accV = new Vector(1, 1);
     //forces equilibrium
     this.sepWeight = 0.5;
     this.cohWeight = 0.5;
@@ -46,27 +51,33 @@ class Boid {
   }
   //Forces
   separate() {
-    this.sepV = new Vector(1, 1);
+    this.run.boids.forEach(function(boid, index, boids) {
+      for (var i = index + 1; i < boids.length; i++) {
+        if (boid.pos() !== boids[i].pos()) {
+          boid.sepV.x -= 1 / (boid.x - boids[i].x);
+          boid.sepV.y -= 1 / (boid.y - boids[i].y);
+        } else {
+          boid.sepV.x += 0;
+          boid.sepV.y += 0;
+        }
+      }
+    });
+
     this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
     return this.sepV;
   }
   cohere() {
-    this.cohV = new Vector(1, 1);
-
     this.cohV = this.cohV.normalize(1); //normalize & weigh
     return this.cohV;
   }
   align() {
-    this.aliV = new Vector(1, 1);
-
     this.aliV = this.aliV.normalize(this.maxSpeed); //normalize & weigh
     return this.aliV;
   }
   getTotalAcceleration() {
-    this.accV = new Vector(1, 1);
     this.accV.add(this.separate());
-    this.accV.add(this.cohere());
-    this.accV.add(this.align());
+    //this.accV.add(this.cohere());
+    //this.accV.add(this.align());
     this.accV.normalize(this.maxSpeed);
     return this.accV;
   }
@@ -75,10 +86,10 @@ class Boid {
   move() {
     /* this.dx = (this.getTotalAcceleration()).x;
     this.dy = (this.getTotalAcceleration()).y; */
-    /* this.dx = this.sepV().x;
-    this.dy = this.sepV().y; */
-    this.dx = Math.random();
-    this.dy = Math.random();
+    this.dx = this.getTotalAcceleration().x;
+    this.dy = this.getTotalAcceleration().y;
+    /* this.dx = Math.random();
+    this.dy = Math.random(); */
     this.x += this.dx;
     this.y += this.dy;
 
