@@ -47,54 +47,36 @@ class Boid {
   //Forces
   separate() {
     this.sepV = new Vector(1, 1);
-
-    //this.sepV = this.sepV.normalize(1); //normalize & weigh
+    this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
     return this.sepV;
-
-    //Check closest 3 and move away
-
-    /*   this.run.boids.forEach(function(boid, index, boids) {
-      var distX, distY, eachDist;
-      for (var i = index + 1; i < boids.length; i++) {
-        distX = boid.x - boids[i].x;
-        distY = boid.y - boids[i].y;
-        eachDist = Math.sqrt(distX ^ (2 + distY) ^ 2);
-        if (eachDist <= boid.maxDist) {
-          return distX, distY;
-        } else {
-          return 0, 0;
-        }
-      }
-      this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
-      return this.sepV;
-    }); */
   }
   cohere() {
     this.cohV = new Vector(1, 1);
 
     this.cohV = this.cohV.normalize(1); //normalize & weigh
-    console.log(this.cohV);
     return this.cohV;
   }
   align() {
     this.aliV = new Vector(1, 1);
 
-    //this.aliV = this.aliV.normalize(1); //normalize & weigh
+    this.aliV = this.aliV.normalize(this.maxSpeed); //normalize & weigh
     return this.aliV;
   }
   getTotalAcceleration() {
-    this.accV = new Vector (1,1);
+    this.accV = new Vector(1, 1);
     this.accV.add(this.separate());
     this.accV.add(this.cohere());
     this.accV.add(this.align());
-    //this.accV.normalize(1);
+    this.accV.normalize(this.maxSpeed);
     return this.accV;
   }
-  modifyAcceleration(a) {}
+  modifyAcceleration() {}
   //Animation
   move() {
-    //this.dx = (this.getTotalAcceleration()).x;
-    //this.dy = (this.getTotalAcceleration()).y;
+    /* this.dx = (this.getTotalAcceleration()).x;
+    this.dy = (this.getTotalAcceleration()).y; */
+    /* this.dx = this.sepV().x;
+    this.dy = this.sepV().y; */
     this.dx = Math.random();
     this.dy = Math.random();
     this.x += this.dx;
@@ -130,8 +112,7 @@ class Boid {
   var dy = b.y - a.y;
   return Math.atan2(dy, dx);
 } */
-/* function getDistance(a, b) {
-  var dx = a.x - b.x;
-  var dy = a.y - b.y;
-  return Math.sqrt(dx * dx + dy * dy);
-} */
+
+function sortNumber(a, b) {
+  return a - b;
+}

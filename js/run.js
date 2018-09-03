@@ -9,19 +9,22 @@ class Run {
   }
   //Start gets the animations going
   start() {
-    this.interval = setInterval(function () {
-      this.clear();
-      this.framesCounter++;
-      //FrameCounter max 1000
-      if (this.framesCounter > 1000) {
-        this.framesCounter = 0;
-      }
-      this.score += 0.01;
-      //Move & Draw
-      this.moveAll();
-      this.drawAll();
-      this.boids[1].cohere();
-        }.bind(this), 100 / this.fps);
+    this.interval = setInterval(
+      function() {
+        this.clear();
+        this.framesCounter++;
+        //FrameCounter max 1000
+        if (this.framesCounter > 1000) {
+          this.framesCounter = 0;
+        }
+        this.score += 0.01;
+        //Move & Draw
+        this.moveAll();
+        this.drawAll();
+        this.boids[1].cohere();
+      }.bind(this),
+      1000 / this.fps
+    );
   }
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -44,23 +47,43 @@ class Run {
     this.framesCounter = 0;
     this.score = 0;
   }
+  moveAll() {
+    this.boids.forEach(function(boid) {
+      boid.move();
+    });
+  }
   drawAll() {
-    this.boids.forEach(function (boid) {
+    this.boids.forEach(function(boid) {
       boid.draw();
     });
     //this.drawScore();
   }
-   /*  stop() {
+/*   getRange() {
+    this.boids.forEach(function(boid, index, boids) {
+      var distance = [];
+      var d = 0;
+      for (var i = index + 1; i < boids.length; i++) {
+        d = boid.getDist(boid, boids[i]);
+        if (d <= this.range) {
+          distance.push();
+        }
+      }
+    });
+  } */
+
+  /*  stop() {
     clearInterval(this.interval);
   } */
-/*   gameOver() {
+
+  /*   gameOver() {
     this.stop();
     if (confirm("GAME OVER. Run again?")) {
       this.reset();
       this.start();
     }
   } */
-/*   isCollision() {
+
+  /*   isCollision() {
     // colisiones genéricas
     // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
     return this.obstacles.some(function (obstacle) {
@@ -69,24 +92,10 @@ class Run {
         this.player.y + (this.player.h - 20) >= obstacle.y);
     }.bind(this));
   } */
-  moveAll() {
-    this.boids.forEach(function (boid) {
-      boid.move();
-    });
-  }
-/*   drawScore() {
+
+  /*   drawScore() {
     this.ctx.font = "30px sans-serif";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(Math.floor(this.score), 50, 50);
   } */
 }
-
-
-
-
-
-
-
-
-
-

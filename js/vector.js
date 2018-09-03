@@ -24,8 +24,13 @@ class Vector {
   }
   normalize(a) {
     var l = this.length();
-    this.x /= l;
-    this.y /= l;
+    if (l != 0) {
+      this.x /= l;
+      this.y /= l;
+    } else {
+      this.x = 0;
+      this.y = 0;
+    }
     if (!a) this.multiplyScalar(a);
     return this;
   }
