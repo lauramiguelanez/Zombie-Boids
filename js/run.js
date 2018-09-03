@@ -18,7 +18,7 @@ class Run {
       }
       this.score += 0.01;
       //Move & Draw
-      //this.moveAll();
+      this.moveAll();
       this.drawAll();
     }.bind(this), 1000 / this.fps);
   }
@@ -36,7 +36,6 @@ class Run {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     //this.ctx.fillStyle = "#FA959F";
   }
-  ////Actualize!!!
   reset() {
     for (var i = 0; i < 50; i++) {
       //generate boids in random position
@@ -57,7 +56,6 @@ class Run {
   drawAll() {
     this.boids.forEach(function (boid) {
       boid.draw();
-      console.log(boid.x, boid.y);
     });
     //this.drawScore();
   }
@@ -70,13 +68,11 @@ class Run {
         this.player.y + (this.player.h - 20) >= obstacle.y);
     }.bind(this));
   } */
- /*  moveAll() {
-    this.background.move();
-    this.player.move();
-    this.obstacles.forEach(function (obstacle) {
-      obstacle.move();
+  moveAll() {
+    this.boids.forEach(function (boid) {
+      boid.move();
     });
-  } */
+  }
 /*   drawScore() {
     this.ctx.font = "30px sans-serif";
     this.ctx.fillStyle = "black";

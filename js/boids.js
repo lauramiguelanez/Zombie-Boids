@@ -4,9 +4,9 @@ class Boid {
     //Each BOID is represented by a position
     this.x = x || 0;
     this.y = y || 0;
-    //delta distance
-    this.dx = 0;
-    this.dy = 0;
+    //delta movimiento
+    this.dx = 1;
+    this.dy = 1;
     this.maxDist;
     //speed
     this.speed = (1, 1);
@@ -77,7 +77,23 @@ class Boid {
   getTotalAcceleration() { }
   modifyAcceleration(a) { }
   //Animation
-  move() {};
+  move() {
+    this.x += this.dx;
+    this.y += this.dy;
+    
+    if (this.x < 0) {
+			this.x = this.run.canvas.width;
+		}
+		if (this.x > this.run.canvas.width) {
+			this.x = 0;
+		}
+		if (this.y < 0) {
+			this.y = this.run.canvas.height;
+		}
+		if (this.y > this.run.canvas.height) {
+			this.y = 0;
+		}
+  };
   draw() {
     var size = 2;
     this.run.ctx.fillStyle = "#ff3600";
