@@ -3,14 +3,14 @@ class Vector {
     this.x = x;
     this.y = y;
   }
-  
+
   set(nX, nY) {
     this.x = nX;
     this.y = nY;
     return this;
   }
   length() {
-    return Math.sqrt(this.x ^ (2 + this.y) ^ 2);
+    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
   add(v) {
     this.x += v.x;
@@ -26,7 +26,7 @@ class Vector {
     var l = this.length();
     this.x /= l;
     this.y /= l;
-    if (a != null) this.multiplyScalar(a);
+    if (!a) this.multiplyScalar(a);
     return this;
   }
   multiplyScalar(a) {

@@ -7,7 +7,7 @@ class Boid {
     //delta movimiento
     this.dx = 0;
     this.dy = 0;
-    this.maxDist = 40;
+    this.range = 40;
     //speed
     this.speed = (1, 1);
     this.maxSpeed = (2, 2);
@@ -46,9 +46,14 @@ class Boid {
   }
   //Forces
   separate() {
-    this.sepV = new Vector(0, 0);
+    this.sepV = new Vector(1, 1);
 
-    this.run.boids.forEach(function(boid, index, boids) {
+    //this.sepV = this.sepV.normalize(1); //normalize & weigh
+    return this.sepV;
+
+    //Check closest 3 and move away
+
+    /*   this.run.boids.forEach(function(boid, index, boids) {
       var distX, distY, eachDist;
       for (var i = index + 1; i < boids.length; i++) {
         distX = boid.x - boids[i].x;
@@ -62,22 +67,36 @@ class Boid {
       }
       this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
       return this.sepV;
-    });
+    }); */
   }
   cohere() {
-    this.cohWeight;
+    this.cohV = new Vector(1, 1);
+
+    this.cohV = this.cohV.normalize(1); //normalize & weigh
+    console.log(this.cohV);
+    return this.cohV;
   }
   align() {
-    this.aliWeight;
+    this.aliV = new Vector(1, 1);
+
+    //this.aliV = this.aliV.normalize(1); //normalize & weigh
+    return this.aliV;
   }
-  getTotalAcceleration() {}
+  getTotalAcceleration() {
+    this.accV = new Vector (1,1);
+    this.accV.add(this.separate());
+    this.accV.add(this.cohere());
+    this.accV.add(this.align());
+    //this.accV.normalize(1);
+    return this.accV;
+  }
   modifyAcceleration(a) {}
   //Animation
   move() {
-    //this.separate();
+    //this.dx = (this.getTotalAcceleration()).x;
+    //this.dy = (this.getTotalAcceleration()).y;
     this.dx = Math.random();
     this.dy = Math.random();
-
     this.x += this.dx;
     this.y += this.dy;
 

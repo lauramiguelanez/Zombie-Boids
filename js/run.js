@@ -20,7 +20,8 @@ class Run {
       //Move & Draw
       this.moveAll();
       this.drawAll();
-    }.bind(this), 1000 / this.fps);
+      this.boids[1].cohere();
+        }.bind(this), 100 / this.fps);
   }
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
