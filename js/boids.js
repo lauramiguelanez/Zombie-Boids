@@ -1,5 +1,5 @@
 class Boid {
-  constructor(x, y) {
+  constructor(x, y, run) {
     this.run = run;
     //Each BOID is represented by a position
     this.x = x || 0;
@@ -18,16 +18,16 @@ class Boid {
     this.aliWeight = 0.5;
   }
   //Return the position coordinates of the void
-  /* pos() {
+  pos() {
     return this.x, this.y;
   }
   set(nX, nY) {
     this.x = nX;
     this.y = nY;
     return this;
-  } */
+  }
   //Vector operations
- /*  length() {
+  length() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }
   add(v) {
@@ -57,9 +57,9 @@ class Boid {
     this.x *= -1;
     this.y *= -1;
     return this;
-  } */
+  }
   //Get data
- /*  initialize() {
+  initialize() {
     this.speed.x += (Math.random() - 0.5) * 2;
     this.speed.y += (Math.random() - 0.5) * 2;
   }
@@ -69,18 +69,18 @@ class Boid {
   }
   getOther() {
     return other;
-  } */
+  }
   //Forces
-/*   separation() { }
+  separation() { }
   cohesion() { }
   alignment() { }
   getTotalAcceleration() { }
-  modifyAcceleration(a) { } */
+  modifyAcceleration(a) { }
   //Animation
-  /* Boid.prototype.move = function() {}; */
+  move() {};
   draw() {
     var size = 2;
-    this.run.ctx.fillStyle = "black";
+    this.run.ctx.fillStyle = "#ff3600";
     this.run.ctx.beginPath();
     this.run.ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
     this.run.ctx.fill();

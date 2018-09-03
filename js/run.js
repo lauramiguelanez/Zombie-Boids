@@ -34,7 +34,7 @@ class Run {
   } */
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.fillStyle = "#FA959F";
+    //this.ctx.fillStyle = "#FA959F";
   }
   ////Actualize!!!
   reset() {
@@ -42,7 +42,7 @@ class Run {
       //generate boids in random position
       var x = Math.random() * this.canvas.width;
       var y = Math.random() * this.canvas.height;
-      this.boid = new Boid(x, y);
+      this.boid = new Boid(x, y, this);
       this.boid.acceleration = (0, 0);
       this.boid.speed = (Math.random() - 0.5, Math.random() - 0.5);
       /*   this.boid.maxSpeed = (2, 2);
@@ -57,7 +57,7 @@ class Run {
   drawAll() {
     this.boids.forEach(function (boid) {
       boid.draw();
-      console.log(boy.x, boid.y);
+      console.log(boid.x, boid.y);
     });
     //this.drawScore();
   }
