@@ -34,7 +34,7 @@ class Run {
         this.drawAll();
         this.d = [[], []];
       }.bind(this),
-      10000 / this.fps
+      100 / this.fps
     );
   }
 
@@ -98,18 +98,5 @@ class Run {
     this.ctx.font = "30px sans-serif";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(Math.floor(this.score), 50, 50);
-  } */
-
-
-   /*   getDist(boid, other) {
-    return ((boid.x == 0 && boid.y == 0) || (other.x == 0 && other.y == 0)) ? 0 : (Math.sqrt(
-      Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2))); 
-  } */
-  /*  getDistances(dArray) { //En cada posicion calcula las distancias
-    this.boids.forEach(function(boid, index, boids) {
-      for (var i = index + 1; i < boids.length; i++) {
-        dArray.push(run.getDist(boid, boids[i]));
-      }
-    });
   } */
 }

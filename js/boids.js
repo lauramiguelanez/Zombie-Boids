@@ -47,21 +47,12 @@ velocity() {
     return this.dist;
   }
 
-/*   var eachD;
-  this.boids.forEach(
-    function(boid, index, boids) {
-      this.boids.forEach(function(other) {
-        eachD = ((boid == other) ? 0 : Math.sqrt(Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2)));
-        dArray[index].push(eachD);
-      });
-    }.bind(this)
-  ); */
-
   separate() {
-    var d = this.run.d;
-    this.run.boids.forEach(function(boid, index, boids) {
-      this.boids.forEach(function(other) {
-        if (d > 0 && d < boid.range) {
+    this.run.boids.forEach(function(boid, ind, boids) {
+      boids.forEach(function(other, index, others) {
+
+        if (boid.dist[index] > 0 && boid.dist[index] < boid.range) {
+
           if (boid != other) {
             boid.sepV.x += 2 / (boid.x - other.x);
             boid.sepV.y += 2 / (boid.y - other.y);
@@ -128,23 +119,25 @@ velocity() {
   }
   getTotalAcceleration() {
     this.accV.add(this.separate());
-    this.accV.add(this.cohere());
-    this.accV.add(this.align());
+    //this.accV.add(this.cohere());
+    //this.accV.add(this.align());
     this.accV.normalize(this.maxSpeed);
     return this.accV;
   }
   //Animation
   move() {
-    this.getDist();
-    console.log(this.dist);
-    /* this.dx = this.getTotalAcceleration().x;
-    this.dy = this.getTotalAcceleration().y; */
+    this.getDist(); //get distance to all others
+    //console.log(this.dist);
+
+    this.dx = this.getTotalAcceleration().x;
+    this.dy = this.getTotalAcceleration().y;
     this.dx += Math.random() * 2 - 1;
     this.dy += Math.random() * 2 - 1;
     this.x += this.dx;
     this.y += this.dy;
 
-    this.dist = [];
+    this.dist = []; //clean dist array
+    
     //console.log(this.x, this.y);
 
     //Boundaries
