@@ -1,4 +1,5 @@
-var Boid = function(x, y, run) {
+class Boid {
+  constructor(x, y, run) {
     this.run = run;
     //Each BOID is represented by a position
     this.x = x || 0;
@@ -12,7 +13,6 @@ var Boid = function(x, y, run) {
     this.maxSpeed = (2, 2);
     this.acceleration = (0, 0);
     //forces
-<<<<<<< HEAD
     this.sepV = new Vector(0, 0);
     this.cohV = new Vector(0, 0);
     this.aliV = new Vector(0, 0);
@@ -23,7 +23,7 @@ var Boid = function(x, y, run) {
     this.cohWeight = 1;
     this.aliWeight = 1;
 
-  /*   ///P5 version:
+    /*    ///P5 version:
     this.acceleration = new Vector(0, 0);
     this.velocity();
     this.position = new Vector(x, y);
@@ -32,29 +32,28 @@ var Boid = function(x, y, run) {
     this.maxforce = 0.05; */
   }
 
-/* //init
+  /* //init
 velocity() {
   createVector(Math.random() * 2 - 1, Math.random() * 2 - 1);
 } */
 
-
   //Forces
 
-  /*   separate() {
+  separate() {
     this.run.boids.forEach(function(boid, index, boids) {
-        if (d > 0 && d < boid.range) {
-          if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
-            boid.sepV.x += 2 / (boid.x - boids[i].x);
-            boid.sepV.y += 2 / (boid.y - boids[i].y);
-          } else {
-            boid.sepV.x += 0;
-            boid.sepV.y += 0;
-          }
+      if (d > 0 && d < boid.range) {
+        if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
+          boid.sepV.x += 2 / (boid.x - boids[i].x);
+          boid.sepV.y += 2 / (boid.y - boids[i].y);
+        } else {
+          boid.sepV.x += 0;
+          boid.sepV.y += 0;
         }
+      }
     });
     this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
     return this.sepV;
-  } */
+  }
   /*   cohere() {
     this.run.boids.forEach(function(boid, index, boids) {
       for (var i = index + 1; i < boids.length; i++) {
@@ -83,81 +82,6 @@ velocity() {
     return this.cohV;
   } */
   /*   align() {
-=======
-    this.sepV = new Vector(1, 1);
-    this.cohV = new Vector(1, 1);
-    this.aliV = new Vector(1, 1);
-    this.accV = new Vector(1, 1);
-    this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
-    //forces equilibrium
-    this.sepWeight = 0.25;
-    this.cohWeight = 1;
-    this.aliWeight = 0.75;
-  };
-  //Return the position coordinates of the void
-  Boid.prototype.pos = function() {
-    return this.x, this.y;
-  };
-  Boid.prototype.set = function(nX, nY) {
-    this.x = nX;
-    this.y = nY;
-    return this;
-  };
-  //Vector operations
-
-  //Get data
-  Boid.prototype.initialize = function() {
-    this.speed.x += (Math.random() - 0.5) * 2;
-    this.speed.y += (Math.random() - 0.5) * 2;
-  };
-  Boid.prototype.getDist = function(boid, other) {
-    /* return Math.sqrt(
-      Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2) */
-    return Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2);
-  };
-  //Forces
-  Boid.prototype.separate = function() {
-    this.run.boids.forEach(function(boid, index, boids) {
-      for (var i = index + 1; i < boids.length; i++) {
-        var d = boid.getDist(boid, boids[i]);
-        if (d > 0 && d < boid.range) {
-          (boid.x - boids[i].x == 0) ? boid.sepV.x += 0 : boid.sepV.x += 2 / (boid.x - boids[i].x);
-          (boid.y - boids[i].y == 0) ? boid.sepV.y += 0 : boid.sepV.y += 2 / (boid.y - boids[i].y);
-        }
-      }
-    });
-    this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
-    return this.sepV;
-  };
-  Boid.prototype.cohere = function() {
-    this.run.boids.forEach(function(boid, index, boids) {
-      for (var i = index + 1; i < boids.length; i++) {
-        var d = boid.getDist(boid, boids[i]);
-        var neighbours = 0;
-        if (d > 0 && d < boid.range) {
-          if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
-            boid.cohV.x += boids[i].x;
-            boid.cohV.y += boids[i].y;
-            neighbours++;
-          } else {
-            boid.cohV.x += 0;
-            boid.cohV.y += 0;
-          }
-        }
-        if (neighbours != 0) {
-          boid.cohV.x /= neighbours;
-          boid.cohV.y /= neighbours;
-        } else {
-          boid.cohV.x = 0;
-          boid.cohV.y = 0;
-        }
-      }
-    });
-    this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
-    return this.cohV;
-  };
-  Boid.prototype.align = function () {
->>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     this.run.boids.forEach(function(boid, index, boids) {
       boid.dirV.x = boid.x - boid.dx;
       boid.dirV.y = boid.y - boid.dy;
@@ -179,38 +103,22 @@ velocity() {
         boid.aliV.y = 0;
       }
     });
-<<<<<<< HEAD
     this.aliV = this.aliV.normalize(this.maxSpeed); //normalize & weigh
     return this.aliV;
   } */
   getTotalAcceleration() {
-=======
-    this.aliV = this.aliV.normalize(this.aliWeight); //normalize & weigh
-    return this.aliV;
-  };
-  Boid.prototype.getTotalAcceleration = function() {
->>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     this.accV.add(this.separate());
     this.accV.add(this.cohere());
     this.accV.add(this.align());
     this.accV.normalize(this.maxSpeed);
     return this.accV;
-  };
-  Boid.prototype.modifyAcceleration = function() {}
+  }
   //Animation
-<<<<<<< HEAD
   move() {
     /* this.dx = this.getTotalAcceleration().x;
     this.dy = this.getTotalAcceleration().y; */
     this.dx += Math.random() * 2 - 1;
     this.dy += Math.random() * 2 - 1;
-=======
-  Boid.prototype.move = function() {
-    this.dx = this.getTotalAcceleration().x;
-    this.dy = this.getTotalAcceleration().y;
-    //this.dx += Math.random() * 2 - 1;
-    //this.dy += Math.random() * 2 - 1;
->>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     this.x += this.dx;
     this.y += this.dy;
     this.getDistances();
@@ -232,13 +140,14 @@ velocity() {
       this.y = 0;
     }
   }
-  Boid.prototype.draw = function() {
+  draw() {
     var size = 5;
     this.run.ctx.fillStyle = "#ff3600";
     this.run.ctx.beginPath();
     this.run.ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
     this.run.ctx.fill();
   }
+}
 
 //End of Class
 
