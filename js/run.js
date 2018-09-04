@@ -1,9 +1,9 @@
 //Define the canvas
-class Run {
-  constructor(canvasId) {
+ function Run (canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
     this.fps = 10;
+<<<<<<< HEAD
     this.boids = []; //population of boids
     this.reset();
     this.d = [[],[]];
@@ -14,6 +14,14 @@ class Run {
   //Start gets the animations going
   start() {
     this.interval = setInterval( // in each update do:
+=======
+    this.boids = [];
+    this.reset();
+  };
+  //Start gets the animations going
+  Run.prototype.start = function(){
+    this.interval = setInterval(
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
       function() {
         this.clear();
         this.framesCounter++;
@@ -34,37 +42,67 @@ class Run {
         console.log(this.d[1]);
         this.moveAll();
         this.drawAll();
+<<<<<<< HEAD
         this.d = [[],[]];
 
+=======
+        
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
       }.bind(this),
       10000 / this.fps
     );
   }
+<<<<<<< HEAD
 
   clear() {
+=======
+  Run.prototype.clear = function() {
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
+<<<<<<< HEAD
 
   reset() {
+=======
+  Run.prototype.reset = function()  {
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     for (var i = 0; i < 50; i++) {
       //generate boids in random position
       var x = Math.random() * this.canvas.width;
       var y = Math.random() * this.canvas.height;
       this.boid = new Boid(x, y, this);
+<<<<<<< HEAD
       this.boid.acceleration = (0, 0);
+=======
+      //this.boid = new Boid(x, y, this,Math.random() * 2 - 1,Math.random() * 2 - 1);
+      //this.boid.initialize();
+      //this.boid.speed = (Math.random() - 0.5, Math.random() - 0.5);
+      /*   this.boid.maxSpeed = (2, 2);
+      this.boid.acceleration = new Boid(0, 0);
+      this.boid.speed = new Boid (Math.random() - 0.5, Math.random() - 0.5);
+      this.boid.maxSpeed = new Boid (2, 2); */
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
       this.boids.push(this.boid);
     }
     this.framesCounter = 0;
     this.score = 0;
   }
+<<<<<<< HEAD
 
   moveAll() {
+=======
+  Run.prototype.moveAll = function()  {
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     this.boids.forEach(function(boid) {
       boid.move();
     });
   }
+<<<<<<< HEAD
 
   drawAll() {
+=======
+  Run.prototype.drawAll = function()  {
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
     this.boids.forEach(function(boid) {
       boid.draw();
     });
@@ -100,11 +138,11 @@ class Run {
 
 
 
-  /*  stop() {
+  /*  Run.prototype.stop = function()  {
     clearInterval(this.interval);
   } */
 
-  /*   gameOver() {
+  /*   Run.prototype.gameOver = function()  {
     this.stop();
     if (confirm("GAME OVER. Run again?")) {
       this.reset();
@@ -112,7 +150,7 @@ class Run {
     }
   } */
 
-  /*   isCollision() {
+  /*   Run.prototype.isCollision = function()  {
     // colisiones genéricas
     // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
     return this.obstacles.some(function (obstacle) {
@@ -122,9 +160,12 @@ class Run {
     }.bind(this));
   } */
 
-  /*   drawScore() {
+  /*   Run.prototype.drawScore = function()  {
     this.ctx.font = "30px sans-serif";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(Math.floor(this.score), 50, 50);
   } */
+<<<<<<< HEAD
 }
+=======
+>>>>>>> 2ae34f7f1c24a09df28e29552c19ba562a7256fd
