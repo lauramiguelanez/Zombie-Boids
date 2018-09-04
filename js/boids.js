@@ -7,37 +7,25 @@ class Boid {
     //delta movimiento
     this.dx = 0;
     this.dy = 0;
-    this.range = 40;
+    this.range = 100;
+    this.minD = 7;
 
     this.dist = [];
     //speed
     //this.speed = (speedX, speedY);
     this.maxSpeed = (2, 2);
-    this.acceleration = (0, 0);
     //forces
     this.sepV = new Vector(0, 0);
     this.cohV = new Vector(0, 0);
     this.aliV = new Vector(0, 0);
-    this.accV = new Vector(0, 0);
+    this.accV = new Vector(Math.random() * 2 - 1, Math.random() * 2 - 1);
     this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
     //forces equilibrium
-    this.sepWeight = 1;
-    this.cohWeight = 1;
+    this.sepWeight = 0.1;
+    this.cohWeight = 10;
     this.aliWeight = 1;
 
-    /*    ///P5 version:
-    this.acceleration = new Vector(0, 0);
-    this.velocity();
-    this.position = new Vector(x, y);
-    this.r = 3.0;
-    this.maxspeed = 3; // Maximum speed
-    this.maxforce = 0.05; */
   }
-
-  /* //init
-velocity() {
-  createVector(Math.random() * 2 - 1, Math.random() * 2 - 1);
-} */
 
   //Forces
   getDist() {
@@ -51,7 +39,7 @@ velocity() {
     this.run.boids.forEach(function(boid, ind, boids) {
       boids.forEach(function(other, index, others) {
 
-        if (boid.dist[index] > 0 && boid.dist[index] < boid.range) {
+        if (boid.dist[index] > 0 && boid.dist[index] < boid.minD) {
 
           if (boid != other) {
             boid.sepV.x += 2 / (boid.x - other.x);
@@ -66,12 +54,13 @@ velocity() {
     this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
     return this.sepV;
   }
-  cohere(d) {
-    var d = this.run.d;
-    this.run.boids.forEach(function(boid, index, boids) {
-      this.boids.forEach(function(other) {
-        var neighbours = 0;
-        if (d > 0 && d < boid.range) {
+  cohere() {
+    this.run.boids.forEach(function(boid, ind, boids) {
+      var neighbours = 0;
+      boids.forEach(function(other, index, others) {
+        
+
+        if (boid.dist[index] > 0 && boid.dist[index] < boid.range) {
           if (boid != other) {
             boid.cohV.x += other.x;
             boid.cohV.y += other.y;
@@ -93,10 +82,10 @@ velocity() {
     this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
     return this.cohV;
   }
-  align(d) {
-    var d = this.run.d;
+  align() {
     var neighbours = 0;
     this.run.boids.forEach(function(boid, index, boids) {
+      
       boid.dirV.x = boid.x - boid.dx;
       boid.dirV.y = boid.y - boid.dy;
       this.boids.forEach(function(other) {
@@ -119,7 +108,7 @@ velocity() {
   }
   getTotalAcceleration() {
     this.accV.add(this.separate());
-    //this.accV.add(this.cohere());
+    this.accV.add(this.cohere());
     //this.accV.add(this.align());
     this.accV.normalize(this.maxSpeed);
     return this.accV;
