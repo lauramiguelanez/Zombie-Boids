@@ -3,13 +3,17 @@ class Run {
   constructor(canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
-    this.fps = 60;
-    this.boids = [];
+    this.fps = 10;
+    this.boids = []; //population of boids
     this.reset();
+    this.d = [[],[]];
+
+
   }
+  
   //Start gets the animations going
   start() {
-    this.interval = setInterval(
+    this.interval = setInterval( // in each update do:
       function() {
         this.clear();
         this.framesCounter++;
@@ -19,17 +23,28 @@ class Run {
         }
         this.score += 0.01;
         //Move & Draw
+        /* for (var i=0;i<this.boids.length;i++){
+          for (var j=0;j<this.boids.length-1;j++){
+            this.d[i][j] = 0;
+          }
+        }; */
+
+
+        this.getDistances(this.d);
+        console.log(this.d[1]);
         this.moveAll();
         this.drawAll();
-        this.boids[1].cohere();
+        this.d = [[],[]];
+
       }.bind(this),
-      1000 / this.fps
+      10000 / this.fps
     );
   }
+
   clear() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    //this.ctx.fillStyle = "#FA959F";
   }
+
   reset() {
     for (var i = 0; i < 50; i++) {
       //generate boids in random position
@@ -37,27 +52,52 @@ class Run {
       var y = Math.random() * this.canvas.height;
       this.boid = new Boid(x, y, this);
       this.boid.acceleration = (0, 0);
-      //this.boid.speed = (Math.random() - 0.5, Math.random() - 0.5);
-      /*   this.boid.maxSpeed = (2, 2);
-      this.boid.acceleration = new Boid(0, 0);
-      this.boid.speed = new Boid (Math.random() - 0.5, Math.random() - 0.5);
-      this.boid.maxSpeed = new Boid (2, 2); */
       this.boids.push(this.boid);
     }
     this.framesCounter = 0;
     this.score = 0;
   }
+
   moveAll() {
     this.boids.forEach(function(boid) {
       boid.move();
     });
   }
+
   drawAll() {
     this.boids.forEach(function(boid) {
       boid.draw();
     });
     //this.drawScore();
   }
+
+  //Get data
+/*   getDist(boid, other) {
+    return ((boid.x == 0 && boid.y == 0) || (other.x == 0 && other.y == 0)) ? 0 : (Math.sqrt(
+      Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2))); 
+  } */
+ /*  getDistances(dArray) { //En cada posicion calcula las distancias
+    this.boids.forEach(function(boid, index, boids) {
+      for (var i = index + 1; i < boids.length; i++) {
+        dArray.push(run.getDist(boid, boids[i]));
+      }
+    });
+  } */
+
+  getDistances(dArray) { //En cada posicion calcula las distancias
+    var eachD;
+    this.boids.forEach(function(boid, index, boids) { //poner for each
+      this.boids.forEach(function(other){
+        eachD = (boid == other) ? 0 : (Math.sqrt(
+          Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2)));
+        dArray[index].push(eachD);
+      })
+    }.bind(this));
+  }
+
+
+
+
 
 
   /*  stop() {

@@ -13,88 +13,122 @@ class Boid {
     this.maxSpeed = (2, 2);
     this.acceleration = (0, 0);
     //forces
-    this.sepV = new Vector(1, 1);
-    this.cohV = new Vector(1, 1);
-    this.aliV = new Vector(1, 1);
-    this.accV = new Vector(1, 1);
+    this.sepV = new Vector(0, 0);
+    this.cohV = new Vector(0, 0);
+    this.aliV = new Vector(0, 0);
+    this.accV = new Vector(0, 0);
+    this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
     //forces equilibrium
     this.sepWeight = 1;
-    this.cohWeight = 0.5;
-    this.aliWeight = 0.5;
-  }
-  //Return the position coordinates of the void
-  pos() {
-    return this.x, this.y;
-  }
-  set(nX, nY) {
-    this.x = nX;
-    this.y = nY;
-    return this;
-  }
-  direction() {
-    return this.dx, this.dy;
-  }
-  //Vector operations
+    this.cohWeight = 1;
+    this.aliWeight = 1;
 
-  //Get data
-  initialize() {
-    this.speed.x += (Math.random() - 0.5) * 2;
-    this.speed.y += (Math.random() - 0.5) * 2;
+  /*   ///P5 version:
+    this.acceleration = new Vector(0, 0);
+    this.velocity();
+    this.position = new Vector(x, y);
+    this.r = 3.0;
+    this.maxspeed = 3; // Maximum speed
+    this.maxforce = 0.05; */
   }
-  getDist(boid, other) {
-    distX = boid.x - other.x;
-    distY = boid.y - other.y;
-    return Math.sqrt(distX ^ (2 + distY) ^ 2);
-  }
-  getOther() {
-    return other;
-  }
+
+/* //init
+velocity() {
+  createVector(Math.random() * 2 - 1, Math.random() * 2 - 1);
+} */
+
+
   //Forces
-  separate() {
+
+  /*   separate() {
+    this.run.boids.forEach(function(boid, index, boids) {
+        if (d > 0 && d < boid.range) {
+          if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
+            boid.sepV.x += 2 / (boid.x - boids[i].x);
+            boid.sepV.y += 2 / (boid.y - boids[i].y);
+          } else {
+            boid.sepV.x += 0;
+            boid.sepV.y += 0;
+          }
+        }
+    });
+    this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
+    return this.sepV;
+  } */
+  /*   cohere() {
     this.run.boids.forEach(function(boid, index, boids) {
       for (var i = index + 1; i < boids.length; i++) {
-        if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
-          boid.sepV.x += 2 / (boid.x - boids[i].x);
-          boid.sepV.y += 2 / (boid.y - boids[i].y);
+        var d = boid.getDist(boid, boids[i]);
+        var neighbours = 0;
+        if (d > 0 && d < boid.range) {
+          if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
+            boid.cohV.x += boids[i].x;
+            boid.cohV.y += boids[i].y;
+            neighbours++;
+          } else {
+            boid.cohV.x += 0;
+            boid.cohV.y += 0;
+          }
+        }
+        if (neighbours != 0) {
+          boid.cohV.x /= neighbours;
+          boid.cohV.y /= neighbours;
         } else {
-          boid.sepV.x += 0;
-          boid.sepV.y += 0;
+          boid.cohV.x = 0;
+          boid.cohV.y = 0;
         }
       }
     });
-
-    this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
-    return this.sepV;
-  }
-  cohere() {
-    this.cohV = this.cohV.normalize(1); //normalize & weigh
+    this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
     return this.cohV;
-  }
-  align() {
+  } */
+  /*   align() {
+    this.run.boids.forEach(function(boid, index, boids) {
+      boid.dirV.x = boid.x - boid.dx;
+      boid.dirV.y = boid.y - boid.dy;
+
+      for (var i = index + 1; i < boids.length; i++) {
+        var d = boid.getDist(boid, boids[i]);
+        var neighbours = 0;
+        if (d > 0 && d < boid.range) {
+          boid.aliV.x += boids[i].dirV.x;
+          boid.aliV.y += boids[i].dirV.y;
+          neighbours++;
+        }
+      }
+      if (neighbours != 0) {
+        boid.aliV.x /= neighbours;
+        boid.aliV.y /= neighbours;
+      } else {
+        boid.aliV.x = 0;
+        boid.aliV.y = 0;
+      }
+    });
     this.aliV = this.aliV.normalize(this.maxSpeed); //normalize & weigh
     return this.aliV;
-  }
+  } */
   getTotalAcceleration() {
     this.accV.add(this.separate());
-    //this.accV.add(this.cohere());
-    //this.accV.add(this.align());
+    this.accV.add(this.cohere());
+    this.accV.add(this.align());
     this.accV.normalize(this.maxSpeed);
     return this.accV;
   }
   modifyAcceleration() {}
   //Animation
   move() {
-    /* this.dx = (this.getTotalAcceleration()).x;
-    this.dy = (this.getTotalAcceleration()).y; */
-    this.dx = this.getTotalAcceleration().x;
-    this.dy = this.getTotalAcceleration().y;
+    /* this.dx = this.getTotalAcceleration().x;
+    this.dy = this.getTotalAcceleration().y; */
     this.dx += Math.random() * 2 - 1;
     this.dy += Math.random() * 2 - 1;
     this.x += this.dx;
     this.y += this.dy;
+    this.getDistances();
+    console.log(this.run.d);
 
-    console.log(this.x, this.y);
+    //console.log(this.x, this.y);
 
+    //Boundaries
     if (this.x < 0) {
       this.x = this.run.canvas.width;
     }
