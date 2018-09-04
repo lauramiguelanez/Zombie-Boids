@@ -39,7 +39,7 @@ velocity() {
 
   //Forces
 
-  separate() {
+  separate(d) {
     this.run.boids.forEach(function(boid, index, boids) {
       if (d > 0 && d < boid.range) {
         if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
@@ -54,7 +54,7 @@ velocity() {
     this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
     return this.sepV;
   }
-  /*   cohere() {
+  /*   cohere(d) {
     this.run.boids.forEach(function(boid, index, boids) {
       for (var i = index + 1; i < boids.length; i++) {
         var d = boid.getDist(boid, boids[i]);
@@ -81,7 +81,7 @@ velocity() {
     this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
     return this.cohV;
   } */
-  /*   align() {
+  /*   align(d) {
     this.run.boids.forEach(function(boid, index, boids) {
       boid.dirV.x = boid.x - boid.dx;
       boid.dirV.y = boid.y - boid.dy;
@@ -121,8 +121,6 @@ velocity() {
     this.dy += Math.random() * 2 - 1;
     this.x += this.dx;
     this.y += this.dy;
-    this.getDistances();
-    console.log(this.run.d);
 
     //console.log(this.x, this.y);
 
@@ -141,7 +139,7 @@ velocity() {
     }
   }
   draw() {
-    var size = 5;
+    var size = 3;
     this.run.ctx.fillStyle = "#ff3600";
     this.run.ctx.beginPath();
     this.run.ctx.arc(this.x, this.y, size, 0, Math.PI * 2);

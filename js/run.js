@@ -27,8 +27,8 @@ class Run {
             this.d[i][j] = 0;
           }
         }; */
-        this.getDistances(this.d);
-        console.log(this.d[1]);
+        //this.getDistances(this.d);
+        //console.log(this.d);
         this.moveAll();
         this.drawAll();
         this.d = [[], []];
@@ -85,14 +85,8 @@ class Run {
     var eachD;
     this.boids.forEach(
       function(boid, index, boids) {
-        //poner for each
         this.boids.forEach(function(other) {
-          eachD =
-            boid == other
-              ? 0
-              : Math.sqrt(
-                  Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2)
-                );
+          eachD = ((boid == other) ? 0 : Math.sqrt(Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2)));
           dArray[index].push(eachD);
         });
       }.bind(this)
