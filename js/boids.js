@@ -8,6 +8,8 @@ class Boid {
     this.dx = 0;
     this.dy = 0;
     this.range = 40;
+
+    this.dist = [];
     //speed
     //this.speed = (speedX, speedY);
     this.maxSpeed = (2, 2);
@@ -38,31 +40,50 @@ velocity() {
 } */
 
   //Forces
+  getDist() {
+    this.run.boids.forEach(function(other) {
+      this.dist.push((this == other) ? 0 : Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2)));
+    }.bind(this));
+    return this.dist;
+  }
 
-  separate(d) {
+/*   var eachD;
+  this.boids.forEach(
+    function(boid, index, boids) {
+      this.boids.forEach(function(other) {
+        eachD = ((boid == other) ? 0 : Math.sqrt(Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2)));
+        dArray[index].push(eachD);
+      });
+    }.bind(this)
+  ); */
+
+  separate() {
+    var d = this.run.d;
     this.run.boids.forEach(function(boid, index, boids) {
-      if (d > 0 && d < boid.range) {
-        if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
-          boid.sepV.x += 2 / (boid.x - boids[i].x);
-          boid.sepV.y += 2 / (boid.y - boids[i].y);
-        } else {
-          boid.sepV.x += 0;
-          boid.sepV.y += 0;
+      this.boids.forEach(function(other) {
+        if (d > 0 && d < boid.range) {
+          if (boid != other) {
+            boid.sepV.x += 2 / (boid.x - other.x);
+            boid.sepV.y += 2 / (boid.y - other.y);
+          } else {
+            boid.sepV.x += 0;
+            boid.sepV.y += 0;
+          }
         }
-      }
+      });
     });
     this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
     return this.sepV;
   }
-  /*   cohere(d) {
+  cohere(d) {
+    var d = this.run.d;
     this.run.boids.forEach(function(boid, index, boids) {
-      for (var i = index + 1; i < boids.length; i++) {
-        var d = boid.getDist(boid, boids[i]);
+      this.boids.forEach(function(other) {
         var neighbours = 0;
         if (d > 0 && d < boid.range) {
-          if (boid.x - boids[i].x !== 0 && boid.y - boids[i].y !== 0) {
-            boid.cohV.x += boids[i].x;
-            boid.cohV.y += boids[i].y;
+          if (boid != other) {
+            boid.cohV.x += other.x;
+            boid.cohV.y += other.y;
             neighbours++;
           } else {
             boid.cohV.x += 0;
@@ -76,25 +97,24 @@ velocity() {
           boid.cohV.x = 0;
           boid.cohV.y = 0;
         }
-      }
+      });
     });
     this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
     return this.cohV;
-  } */
-  /*   align(d) {
+  }
+  align(d) {
+    var d = this.run.d;
+    var neighbours = 0;
     this.run.boids.forEach(function(boid, index, boids) {
       boid.dirV.x = boid.x - boid.dx;
       boid.dirV.y = boid.y - boid.dy;
-
-      for (var i = index + 1; i < boids.length; i++) {
-        var d = boid.getDist(boid, boids[i]);
-        var neighbours = 0;
+      this.boids.forEach(function(other) {
         if (d > 0 && d < boid.range) {
           boid.aliV.x += boids[i].dirV.x;
           boid.aliV.y += boids[i].dirV.y;
           neighbours++;
         }
-      }
+      });
       if (neighbours != 0) {
         boid.aliV.x /= neighbours;
         boid.aliV.y /= neighbours;
@@ -105,7 +125,7 @@ velocity() {
     });
     this.aliV = this.aliV.normalize(this.maxSpeed); //normalize & weigh
     return this.aliV;
-  } */
+  }
   getTotalAcceleration() {
     this.accV.add(this.separate());
     this.accV.add(this.cohere());
@@ -115,6 +135,8 @@ velocity() {
   }
   //Animation
   move() {
+    this.getDist();
+    console.log(this.dist);
     /* this.dx = this.getTotalAcceleration().x;
     this.dy = this.getTotalAcceleration().y; */
     this.dx += Math.random() * 2 - 1;
@@ -122,6 +144,7 @@ velocity() {
     this.x += this.dx;
     this.y += this.dy;
 
+    this.dist = [];
     //console.log(this.x, this.y);
 
     //Boundaries

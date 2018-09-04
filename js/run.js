@@ -27,6 +27,7 @@ class Run {
             this.d[i][j] = 0;
           }
         }; */
+
         //this.getDistances(this.d);
         //console.log(this.d);
         this.moveAll();
@@ -68,30 +69,8 @@ class Run {
   }
 
   //Get data
-  /*   getDist(boid, other) {
-    return ((boid.x == 0 && boid.y == 0) || (other.x == 0 && other.y == 0)) ? 0 : (Math.sqrt(
-      Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2))); 
-  } */
-  /*  getDistances(dArray) { //En cada posicion calcula las distancias
-    this.boids.forEach(function(boid, index, boids) {
-      for (var i = index + 1; i < boids.length; i++) {
-        dArray.push(run.getDist(boid, boids[i]));
-      }
-    });
-  } */
 
-  getDistances(dArray) {
-    //En cada posicion calcula las distancias
-    var eachD;
-    this.boids.forEach(
-      function(boid, index, boids) {
-        this.boids.forEach(function(other) {
-          eachD = ((boid == other) ? 0 : Math.sqrt(Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2)));
-          dArray[index].push(eachD);
-        });
-      }.bind(this)
-    );
-  }
+ 
 
   /*  stop() {
     clearInterval(this.interval);
@@ -119,5 +98,18 @@ class Run {
     this.ctx.font = "30px sans-serif";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(Math.floor(this.score), 50, 50);
+  } */
+
+
+   /*   getDist(boid, other) {
+    return ((boid.x == 0 && boid.y == 0) || (other.x == 0 && other.y == 0)) ? 0 : (Math.sqrt(
+      Math.pow(boid.x - other.x, 2) + Math.pow(boid.y - other.y, 2))); 
+  } */
+  /*  getDistances(dArray) { //En cada posicion calcula las distancias
+    this.boids.forEach(function(boid, index, boids) {
+      for (var i = index + 1; i < boids.length; i++) {
+        dArray.push(run.getDist(boid, boids[i]));
+      }
+    });
   } */
 }
