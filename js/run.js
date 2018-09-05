@@ -4,6 +4,8 @@ function Run (canvasId) {
     this.ctx = this.canvas.getContext("2d");
     this.fps = 10;
     this.boids = []; //population of boids
+    this.zombies = [];
+    this.humans = [];
     this.reset();
   }
 

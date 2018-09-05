@@ -6,12 +6,11 @@ function Boid(x, y, run) {
   //delta movimiento
   this.dx = 0;
   this.dy = 0;
+  // Rage
   this.range = 70;
   this.minD = 3;
-
   this.dist = [];
   //speed
-  //this.speed = (speedX, speedY);
   this.maxSpeed = (4, 4);
   //forces
   this.sepV = new Vector(0, 0);
@@ -21,8 +20,11 @@ function Boid(x, y, run) {
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
   this.sepWeight = 3;
-  this.cohWeight = 7;
+  this.cohWeight = 10;
   this.aliWeight = 6;
+
+  //Aesthetics
+  this.color = "#ff3600"; //"#ff3600" "white"
 }
 
 //Forces
@@ -46,8 +48,8 @@ Boid.prototype.separate = function() {
     boids.forEach(function(other, index, others) {
       if (boid.dist[index] > 0 && boid.dist[index] < boid.minD) {
         if (boid.x != other.x && boid.y != other.y) {
-          boid.sepV.x += (boid.x - other.x); /// boid.dist;
-          boid.sepV.y += (boid.y - other.y); /// boid.dist;
+          boid.sepV.x += boid.x - other.x; /// boid.dist;
+          boid.sepV.y += boid.y - other.y; /// boid.dist;
         } else {
           boid.sepV.x += 0;
           boid.sepV.y += 0;
@@ -154,7 +156,7 @@ Boid.prototype.move = function() {
 };
 Boid.prototype.draw = function() {
   var size = 3;
-  this.run.ctx.fillStyle = "#ff3600";
+  this.run.ctx.fillStyle = (`${this.color}`);
   this.run.ctx.beginPath();
   this.run.ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
   this.run.ctx.fill();
