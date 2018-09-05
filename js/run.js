@@ -35,7 +35,7 @@ Run.prototype.clear = function() {
 };
 
 Run.prototype.reset = function() {
-/*   for (var i = 0; i < 25; i++) {
+  /*   for (var i = 0; i < 25; i++) {
     //generate Boids
     var x = Math.random() * this.canvas.width;
     var y = Math.random() * this.canvas.height;
@@ -75,7 +75,6 @@ Run.prototype.moveAll = function() {
   /* this.humans.forEach(function(human){
     human.die(this.humans, this.zombies);
   }.bind(this)); */
-  
 };
 
 Run.prototype.drawAll = function() {
@@ -104,16 +103,16 @@ Run.prototype.die = function(humans, zombies) {
         console.log("Someone has been killed");
         human.run.ctx.fillStyle = "#ff3600";
         human.run.ctx.beginPath();
-        human.run.ctx.arc(human.x, human.y, 6, 0, Math.PI * 2);
+        human.run.ctx.arc(human.x, human.y, 7, 0, Math.PI * 2);
         human.run.ctx.fill();
+
+        zombies.push(new Zombie(human.x, human.y, human.run)); //Die & resurrect
+        humans.splice(index, 1);
       }
-      //zombies.push(new Zombie(human.x, human.y, human.run));
-      //humans.splice(index,1);
     });
   });
   console.log("There are " + zombies.length + " zombies");
 };
-
 
 //Display
 Run.prototype.display = function() {
@@ -126,10 +125,10 @@ Run.prototype.displayNboids = function() {
   var nBoids = this.humans.length;
   spanNboids.innerHTML = nBoids;
 };
-Run.prototype.displayScore = function(){
+Run.prototype.displayScore = function() {
   var spanScore = document.getElementById("score");
   spanScore.innerHTML = Math.floor(this.score);
-}
+};
 
 /*  Run.prototype.stop = function() {
     clearInterval(this.interval);
