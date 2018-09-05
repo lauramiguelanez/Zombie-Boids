@@ -26,7 +26,7 @@ Run.prototype.start = function() {
       this.moveAll();
       this.drawAll();
     }.bind(this),
-    500 / this.fps
+    100 / this.fps
   );
 };
 
@@ -35,12 +35,19 @@ Run.prototype.clear = function() {
 };
 
 Run.prototype.reset = function() {
-  for (var i = 0; i < 25; i++) {
+/*   for (var i = 0; i < 25; i++) {
     //generate Boids
     var x = Math.random() * this.canvas.width;
     var y = Math.random() * this.canvas.height;
     var boid = new Boid(x, y, this);
     this.boids.push(boid);
+  } */
+  for (var i = 0; i < 25; i++) {
+    //generate Humans
+    var x = Math.random() * this.canvas.width;
+    var y = Math.random() * this.canvas.height;
+    var human = new Human(x, y, this);
+    this.humans.push(human);
   }
   for (var i = 0; i < 25; i++) {
     //generate Zombies
@@ -49,7 +56,6 @@ Run.prototype.reset = function() {
     var zombie = new Zombie(x, y, this);
     this.zombies.push(zombie);
   }
-  //console.log(this.zombies); //Are zombies created?
 
   this.framesCounter = 0;
   this.score = 0;
@@ -62,6 +68,9 @@ Run.prototype.moveAll = function() {
   this.zombies.forEach(function(zombie, index, flock) {
     zombie.move(flock);
   });
+  this.humans.forEach(function(human, index, flock) {
+    human.move(flock);
+  });
 };
 
 Run.prototype.drawAll = function() {
@@ -70,6 +79,9 @@ Run.prototype.drawAll = function() {
   });
   this.zombies.forEach(function(zombie) {
     zombie.draw();
+  });
+  this.humans.forEach(function(human) {
+    human.draw();
   });
   //this.drawScore();
 };

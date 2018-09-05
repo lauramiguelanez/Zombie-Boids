@@ -8,10 +8,10 @@ function Boid(x, y, run) {
   this.dy = 0;
   // Rage
   this.range = 100;
-  this.minD = 3;
+  this.minD = 2;
   this.dist = [];
   //speed
-  this.maxSpeed = (4, 4);
+  this.maxSpeed = (5, 5);
   //forces
   this.sepV = new Vector(0, 0);
   this.cohV = new Vector(0, 0);
@@ -19,9 +19,9 @@ function Boid(x, y, run) {
   this.accV = new Vector(0, 0); //(Math.random() * 2 - 1, Math.random() * 2 - 1);
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
-  this.sepWeight = 10;
-  this.cohWeight = 30;
-  this.aliWeight = 10;
+  this.sepWeight = 3;
+  this.cohWeight = 5;
+  this.aliWeight = 6;
 
   //Aesthetics
   this.color = "#ff3600"; //"#ff3600" "white"
@@ -91,14 +91,14 @@ Boid.prototype.cohere = function(flock) {
         baricenterY = 0;
       }
     });
-    boid.cohV.x = baricenterX;
-    boid.cohV.y = baricenterY;
+    boid.cohV.x = baricenterX - boid.x;
+    boid.cohV.y = baricenterY - boid.y;
   });
   this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
   //console.log(this.cohV);
   return this.cohV;
 };
-Boid.prototype.align = function(flock) {
+Boid.prototype.aligned = function(flock) {
   flock.forEach(function(boid, ind, boids) {
     var neighbours = 0;
     var aliX = 0;
@@ -116,7 +116,7 @@ Boid.prototype.align = function(flock) {
       aliX /= neighbours;
       aliY /= neighbours;
     } else {
-      boid.aliV.x = 0;
+      aliX = 0;
       aliY = 0;
     }
     boid.aliV.x = aliX;
@@ -129,7 +129,7 @@ Boid.prototype.align = function(flock) {
 Boid.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate(this.run.boids));
   this.accV.add(this.cohere(this.run.boids));
-  this.accV.add(this.align(this.run.boids));
+  this.accV.add(this.aligned(this.run.boids));
   this.accV.normalize(this.maxSpeed);
   return this.accV;
 };
@@ -141,7 +141,7 @@ Boid.prototype.move = function(flock) {
   this.dx = this.getTotalAcceleration().x;
   this.dy = this.getTotalAcceleration().y;
 
-  isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
+  //isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
 
   this.dx += Math.random() * 2 - 1;
   this.dy += Math.random() * 2 - 1;
