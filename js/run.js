@@ -57,7 +57,7 @@ Run.prototype.reset = function() {
     var zombie = new Zombie(x, y, this);
     this.zombies.push(zombie);
   }
-  this.generateObstacles(10);
+  //this.generateObstacles(10);
 
   this.framesCounter = 0;
   this.score = 0;
@@ -146,21 +146,32 @@ Run.prototype.displayScore = function() {
       this.start();
     }
   } */
-Run.prototype.generateObstacles = function(number){
-  for (var i =0; i<number; i++){
+Run.prototype.generateObstacles = function(number) {
+  for (var i = 0; i < number; i++) {
     this.obstacles.push(new Obstacle(this));
   }
-}
+};
 
-/*   Run.prototype.isCollision = function() {
-    // colisiones genéricas
-    // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-    return this.obstacles.some(function (obstacle) {
-      return (this.player.x + this.player.w >= obstacle.x &&
-        this.player.x < obstacle.x + obstacle.w &&
-        this.player.y + (this.player.h - 20) >= obstacle.y);
-    }.bind(this));
-  } */
+Run.prototype.isCollision = function() {
+  // colisiones genéricas
+  // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
+  this.humans.forEach(function(human) {
+    if (
+      this.obstacles.some(
+        function(obstacle) {
+          return (
+            human.x >= obstacle.x &&
+            human.x <= obstacle.x + obstacle.w &&
+            human.y >= obstacle.y &&
+            human.y <= obstacle.y + obstacle.h
+          );
+        }.bind(this)
+      )
+    ) {
+
+    }
+  });
+};
 
 /*   Run.prototype.drawScore = function() {
     this.ctx.font = "30px sans-serif";
