@@ -8,7 +8,7 @@ function Boid(x, y, run) {
   this.dy = 0;
   // Rage
   this.range = 100;
-  this.minD = 2;
+  this.minD = 15;
   this.dist = [];
   //speed
   this.maxSpeed = (5, 5);
@@ -19,7 +19,7 @@ function Boid(x, y, run) {
   this.accV = new Vector(0, 0); //(Math.random() * 2 - 1, Math.random() * 2 - 1);
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
-  this.sepWeight = 3;
+  this.sepWeight = 4;
   this.cohWeight = 5;
   this.aliWeight = 6;
 
@@ -147,7 +147,7 @@ Boid.prototype.move = function(flock) {
   this.dx = this.getTotalAcceleration().x;
   this.dy = this.getTotalAcceleration().y;
 
-  //isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
+  isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
 
   //this.dx += Math.random() * 2 - 1;
   //this.dy += Math.random() * 2 - 1;

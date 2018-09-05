@@ -1,7 +1,7 @@
 function Human(x, y, run) {
   Boid.call(this, x, y, run);
 
-  this.reach = 10;
+  this.reach = 50;
   this.chase = [];
   this.painD = 7;
 
@@ -101,8 +101,8 @@ Human.prototype.disperse = function(humans) {
 Human.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate(this.run.humans));
   this.accV.add(this.cohere(this.run.humans));
-  //this.accV.add(this.aligned(this.run.humans));
-  //this.accV.add(this.escape(this.run.zombies)); //Add escape force
+  this.accV.add(this.aligned(this.run.humans));
+  this.accV.add(this.escape(this.run.zombies)); //Add escape force
   this.accV.normalize(this.maxSpeed);
   return this.accV;
 };

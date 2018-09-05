@@ -55,8 +55,8 @@ Zombie.prototype.follow = function(targets) {
 Zombie.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate(this.run.zombies));
   this.accV.add(this.cohere(this.run.zombies));
-  //this.accV.add(this.aligned(this.run.zombies));
-  //this.accV.add(this.follow(this.run.boids)); //Add follow force
+  this.accV.add(this.aligned(this.run.zombies));
+  this.accV.add(this.follow(this.run.boids)); //Add follow force
   this.accV.normalize(this.maxSpeed);
   return this.accV;
 };
