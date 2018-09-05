@@ -44,27 +44,39 @@ function Run (canvasId) {
   }
 
   Run.prototype.reset = function() {
-    for (var i = 0; i < 50; i++) {
-      //generate boids in random position
+    for (var i = 0; i < 25; i++) {//generate Boids
       var x = Math.random() * this.canvas.width;
       var y = Math.random() * this.canvas.height;
       this.boid = new Boid(x, y, this);
-      this.boid.acceleration = (0, 0);
       this.boids.push(this.boid);
     }
+/*     for (var i = 0; i < 25; i++) {//generate Zombies
+      var x = Math.random() * this.canvas.width;
+      var y = Math.random() * this.canvas.height;
+      this.zombie = new Zombie(x, y, this);
+      this.zombies.push(this.zombie);
+    } */
+
+
     this.framesCounter = 0;
     this.score = 0;
   }
 
   Run.prototype.moveAll = function() {
-    this.boids.forEach(function(boid) {
-      boid.move();
+    this.boids.forEach(function(boid, index, flock) {
+      boid.move(flock);
     });
+  /*   this.zombies.forEach(function(boid, index, flock) {
+      boid.move(flock);
+    }); */
   }
 
   Run.prototype.drawAll = function() {
     this.boids.forEach(function(boid) {
       boid.draw();
+    });
+    this.zombies.forEach(function(zombie) {
+      zombie.draw();
     });
     //this.drawScore();
   }

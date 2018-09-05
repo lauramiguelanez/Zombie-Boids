@@ -28,8 +28,8 @@ function Boid(x, y, run) {
 }
 
 //Forces
-Boid.prototype.getDist = function() {
-  this.run.boids.forEach(
+Boid.prototype.getDist = function(flock) {
+  flock.forEach(
     function(other) {
       this.dist.push(
         this.x == other.x && this.y == this.y
@@ -43,8 +43,8 @@ Boid.prototype.getDist = function() {
   return this.dist;
 };
 
-Boid.prototype.separate = function() {
-  this.run.boids.forEach(function(boid, ind, boids) {
+Boid.prototype.separate = function(flock) {
+  flock.forEach(function(boid, ind, boids) {
     boids.forEach(function(other, index, others) {
       if (boid.dist[index] > 0 && boid.dist[index] < boid.minD) {
         if (boid.x != other.x && boid.y != other.y) {
@@ -63,8 +63,8 @@ Boid.prototype.separate = function() {
   return this.sepV;
 };
 
-Boid.prototype.cohere = function() {
-  this.run.boids.forEach(function(boid, ind, boids) {
+Boid.prototype.cohere = function(flock) {
+  flock.forEach(function(boid, ind, boids) {
     var neighbours = 0;
     boids.forEach(function(other, index, others) {
       if (boid.dist[index] > 0 && boid.dist[index] < boid.range) {
@@ -90,8 +90,8 @@ Boid.prototype.cohere = function() {
   //console.log(this.cohV);
   return this.cohV;
 };
-Boid.prototype.align = function() {
-  this.run.boids.forEach(function(boid, ind, boids) {
+Boid.prototype.align = function(flock) {
+  flock.forEach(function(boid, ind, boids) {
     var neighbours = 0;
     boid.dirV.x = boid.x - boid.dx;
     boid.dirV.y = boid.y - boid.dy;
@@ -111,19 +111,20 @@ Boid.prototype.align = function() {
     }
   });
   this.aliV = this.aliV.normalize(this.aliWeight); //normalize & weigh
-  console.log(this.aliV);
+  //console.log(this.aliV);
   return this.aliV;
 };
 Boid.prototype.getTotalAcceleration = function() {
-  this.accV.add(this.separate());
-  this.accV.add(this.cohere());
-  //this.accV.add(this.align());
+  this.accV.add(this.separate(this.run.boids));
+  this.accV.add(this.cohere(this.run.boids));
+  this.accV.add(this.align(this.run.boids));
   this.accV.normalize(this.maxSpeed);
+  //console.log(this.run.boids);
   return this.accV;
 };
 //Animation
-Boid.prototype.move = function() {
-  this.getDist(); //get distance to all others
+Boid.prototype.move = function(flock) {
+  this.getDist(flock); //get distance to all others
   //console.log(this.dist);
 
   this.dx = this.getTotalAcceleration().x;
