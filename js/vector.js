@@ -26,8 +26,8 @@ Vector.prototype.sub = function(v) {
 };
 Vector.prototype.normalize = function(a) {
   var l = this.length();
-  this.x == 0 ? (this.x = 0) : (this.x /= l);
-  this.y == 0 ? (this.y = 0) : (this.y /= l);
+  this.x == 0 ? (this.x = 0) : Math.ceil(this.x /= l);
+  this.y == 0 ? (this.y = 0) : Math.ceil(this.y /= l);
   this.multiplyScalar(a);
   return this;
 };

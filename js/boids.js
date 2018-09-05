@@ -93,6 +93,12 @@ Boid.prototype.cohere = function(flock) {
     });
     boid.cohV.x = baricenterX - boid.x;
     boid.cohV.y = baricenterY - boid.y;
+
+    /* boid.ctx.strokeStyle = "#fff";
+    boid.ctx.beginPath();
+    boid.ctx.moveTo(baricenterX, baricenterY);
+    boid.ctx.lineTo(boid.x, boid.y);
+    boid.ctx.stroke(); */
   });
   this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
   //console.log(this.cohV);
@@ -143,8 +149,8 @@ Boid.prototype.move = function(flock) {
 
   //isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
 
-  this.dx += Math.random() * 2 - 1;
-  this.dy += Math.random() * 2 - 1;
+  //this.dx += Math.random() * 2 - 1;
+  //this.dy += Math.random() * 2 - 1;
   this.x += this.dx;
   this.y += this.dy;
   this.dist = []; //clean dist array

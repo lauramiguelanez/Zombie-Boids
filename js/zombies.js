@@ -6,7 +6,7 @@ function Zombie(x, y, run) {
 
   this.folV = new Vector(0, 0);
   this.folWeight = 50;
-  this.color = "grey";
+  this.color = "#65b395";
 }
 Zombie.prototype = Object.create(Boid.prototype);
 Zombie.prototype.constructor = Zombie;
@@ -55,8 +55,8 @@ Zombie.prototype.follow = function(targets) {
 Zombie.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate(this.run.zombies));
   this.accV.add(this.cohere(this.run.zombies));
-  this.accV.add(this.aligned(this.run.zombies));
-  this.accV.add(this.follow(this.run.boids)); //Add follow force
+  //this.accV.add(this.aligned(this.run.zombies));
+  //this.accV.add(this.follow(this.run.boids)); //Add follow force
   this.accV.normalize(this.maxSpeed);
   return this.accV;
 };
