@@ -26,7 +26,7 @@ Run.prototype.start = function() {
       this.moveAll();
       this.drawAll();
     }.bind(this),
-    300 / this.fps
+    500 / this.fps
   );
 };
 

@@ -1,8 +1,8 @@
 function Boid(x, y, run) {
   this.run = run;
   //Each BOID is represented by a position
-  this.x = x || 0;
-  this.y = y || 0;
+  this.x = x;
+  this.y = y;
   //delta movimiento
   this.dx = 0;
   this.dy = 0;
@@ -16,11 +16,11 @@ function Boid(x, y, run) {
   this.sepV = new Vector(0, 0);
   this.cohV = new Vector(0, 0);
   this.aliV = new Vector(0, 0);
-  this.accV = new Vector(Math.random() * 2 - 1, Math.random() * 2 - 1);
+  this.accV = new Vector(0, 0); //(Math.random() * 2 - 1, Math.random() * 2 - 1);
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
-  this.sepWeight = 2;
-  this.cohWeight = 15;
+  this.sepWeight = 3;
+  this.cohWeight = 20;
   this.aliWeight = 6;
 
   //Aesthetics
@@ -48,11 +48,11 @@ Boid.prototype.separate = function(flock) {
     boids.forEach(function(other, index, others) {
       if (boid.dist[index] > 0 && boid.dist[index] < boid.minD) {
         if (boid.x != other.x && boid.y != other.y) {
-          boid.sepV.x += boid.x - other.x; /// boid.dist;
-          boid.sepV.y += boid.y - other.y; /// boid.dist;
+          boid.sepV.x += (boid.x - other.x); /// boid.dist;
+          boid.sepV.y += (boid.y - other.y); /// boid.dist;
         } else {
-          boid.sepV.x += 0;
-          boid.sepV.y += 0;
+          boid.sepV.x = 0;
+          boid.sepV.y = 0;
         }
       }
     });
@@ -73,8 +73,8 @@ Boid.prototype.cohere = function(flock) {
           boid.cohV.y += other.y;
           neighbours++;
         } else {
-          boid.cohV.x += 0;
-          boid.cohV.y += 0;
+          boid.cohV.x = 0;
+          boid.cohV.y = 0;
         }
       }
       if (neighbours != 0) {
@@ -146,7 +146,7 @@ Boid.prototype.move = function(flock) {
   }
   if (this.x > this.run.canvas.width) {
     this.x = 0;
-    //this.accV.negate();
+    //this.accV.x *= (-1);
   }
   if (this.y < 0) {
     this.y = this.run.canvas.height;
@@ -162,16 +162,3 @@ Boid.prototype.draw = function() {
   this.run.ctx.arc(this.x, this.y, size, 0, Math.PI * 2);
   this.run.ctx.fill();
 };
-
-//End of Class
-
-//Other Math
-/* function getAngle(a, b) {
-  var dx = b.x - a.x;
-  var dy = b.y - a.y;
-  return Math.atan2(dy, dx);
-} */
-
-function sortNumber(a, b) {
-  return a - b;
-}
