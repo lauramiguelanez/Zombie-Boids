@@ -1,13 +1,15 @@
 function Zombie(x, y, run) {
   Boid.call(this, x, y, run);
-
+  
   this.reach = 60;
   this.dPrey = [];
 
   this.folV = new Vector(0, 0);
   this.folWeight = 20;
-  this.color = "grey"; 
+  this.color = "grey";
 }
+Zombie.prototype = Object.create(Boid.prototype);
+Zombie.prototype.constructor = Zombie;
 
 Zombie.prototype.getTarget = function(targets) {
   //get distance to humans
@@ -28,7 +30,7 @@ Zombie.prototype.getTarget = function(targets) {
 Zombie.prototype.follow = function(targets) {
   this.getTarget(targets); //get distances to each boid of the target flock
   var feast = 0; //nomber of targets at reach
-  target
+  targets
     .forEach(function(target, index, targets) {
       if (target.dPrey[index] > 0 && this.dPrey[index] < this.reach) {
         // If the target is within the Zombie's reach
@@ -36,8 +38,8 @@ Zombie.prototype.follow = function(targets) {
         this.folV.y += target.y;
         feast++;
       }
-    })
-    .bind(this);
+    }
+    .bind(this));
   if (feast != 0) {
     this.folV.x /= feast;
     this.folV.y /= feast;
@@ -53,7 +55,7 @@ Zombie.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate(this.run.zombies));
   this.accV.add(this.cohere(this.run.zombies));
   this.accV.add(this.align(this.run.zombies));
-  this.accV.add(this.follow(this.run.humans)); //Add follow force
-  this.accV.normalize(this.maxSpeed);
+  this.accV.add(this.follow(this.run.boids)); //Add follow force
+  //this.accV.normalize(this.maxSpeed);
   return this.accV;
 };

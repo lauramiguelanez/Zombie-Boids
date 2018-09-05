@@ -19,8 +19,8 @@ function Boid(x, y, run) {
   this.accV = new Vector(Math.random() * 2 - 1, Math.random() * 2 - 1);
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
-  this.sepWeight = 3;
-  this.cohWeight = 10;
+  this.sepWeight = 2;
+  this.cohWeight = 15;
   this.aliWeight = 6;
 
   //Aesthetics
