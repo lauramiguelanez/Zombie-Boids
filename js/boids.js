@@ -6,8 +6,8 @@ function Boid(x, y, run) {
   //delta movimiento
   this.dx = 0;
   this.dy = 0;
-  this.range = 40;
-  this.minD = 10;
+  this.range = 70;
+  this.minD = 3;
 
   this.dist = [];
   //speed
@@ -21,8 +21,8 @@ function Boid(x, y, run) {
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
   this.sepWeight = 3;
-  this.cohWeight = 10;
-  this.aliWeight = 10;
+  this.cohWeight = 7;
+  this.aliWeight = 6;
 }
 
 //Forces
@@ -58,7 +58,6 @@ Boid.prototype.separate = function() {
   this.sepV = this.sepV.normalize(this.sepWeight); //normalize & weigh
   this.sepV.x = isNaN(this.sepV.x) ? 0 : this.sepV.x;
   this.sepV.y = isNaN(this.sepV.y) ? 0 : this.sepV.y;
-  console.log(this.sepV);
   return this.sepV;
 };
 
@@ -86,6 +85,7 @@ Boid.prototype.cohere = function() {
     });
   });
   this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
+  //console.log(this.cohV);
   return this.cohV;
 };
 Boid.prototype.align = function() {
@@ -109,11 +109,12 @@ Boid.prototype.align = function() {
     }
   });
   this.aliV = this.aliV.normalize(this.aliWeight); //normalize & weigh
+  console.log(this.aliV);
   return this.aliV;
 };
 Boid.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate());
-  //this.accV.add(this.cohere());
+  this.accV.add(this.cohere());
   //this.accV.add(this.align());
   this.accV.normalize(this.maxSpeed);
   return this.accV;
@@ -128,11 +129,10 @@ Boid.prototype.move = function() {
 
   isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
 
-  //this.dx += Math.random() * 2 - 1;
-  //this.dy += Math.random() * 2 - 1;
+  this.dx += Math.random() * 2 - 1;
+  this.dy += Math.random() * 2 - 1;
   this.x += this.dx;
   this.y += this.dy;
-
   this.dist = []; //clean dist array
 
   //console.log(this.x, this.y);
@@ -142,7 +142,7 @@ Boid.prototype.move = function() {
     this.x = this.run.canvas.width;
   }
   if (this.x > this.run.canvas.width) {
-    //this.x = 0;
+    this.x = 0;
     //this.accV.negate();
   }
   if (this.y < 0) {

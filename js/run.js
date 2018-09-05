@@ -33,7 +33,7 @@ function Run (canvasId) {
         this.moveAll();
         this.drawAll();
       }.bind(this),
-      1000 / this.fps
+      300 / this.fps
     );
   }
 
