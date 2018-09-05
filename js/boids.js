@@ -7,12 +7,12 @@ function Boid(x, y, run) {
   this.dx = 0;
   this.dy = 0;
   this.range = 40;
-  this.minD = 200;
+  this.minD = 10;
 
   this.dist = [];
   //speed
   //this.speed = (speedX, speedY);
-  this.maxSpeed = (3, 3);
+  this.maxSpeed = (4, 4);
   //forces
   this.sepV = new Vector(0, 0);
   this.cohV = new Vector(0, 0);
@@ -20,7 +20,7 @@ function Boid(x, y, run) {
   this.accV = new Vector(Math.random() * 2 - 1, Math.random() * 2 - 1);
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
   //forces equilibrium
-  this.sepWeight = 10;
+  this.sepWeight = 3;
   this.cohWeight = 10;
   this.aliWeight = 10;
 }
@@ -46,8 +46,8 @@ Boid.prototype.separate = function() {
     boids.forEach(function(other, index, others) {
       if (boid.dist[index] > 0 && boid.dist[index] < boid.minD) {
         if (boid.x != other.x && boid.y != other.y) {
-          boid.sepV.x += (boid.x - other.x) / boid.dist;
-          boid.sepV.y += (boid.y - other.y) / boid.dist;
+          boid.sepV.x += (boid.x - other.x); /// boid.dist;
+          boid.sepV.y += (boid.y - other.y); /// boid.dist;
         } else {
           boid.sepV.x += 0;
           boid.sepV.y += 0;
@@ -112,7 +112,7 @@ Boid.prototype.align = function() {
   return this.aliV;
 };
 Boid.prototype.getTotalAcceleration = function() {
-  //this.accV.add(this.separate());
+  this.accV.add(this.separate());
   //this.accV.add(this.cohere());
   //this.accV.add(this.align());
   this.accV.normalize(this.maxSpeed);
