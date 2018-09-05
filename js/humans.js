@@ -1,17 +1,17 @@
 function Human(x, y, run) {
   Boid.call(this, x, y, run);
 
-  this.reach = 50;
+  this.reach = 60;
   this.chase = [];
-  this.painD = 7;
+  this.painD = 6;
 
   this.escV = new Vector(0, 0);
   this.disV = new Vector(0, 0);
-  this.escWeight = 50;
+  this.escWeight = 80;
   this.disVWeight = 100;
   this.color = "#FFB6C1";
 
-  //this.setListeners();
+  this.setListeners();
 }
 Human.prototype = Object.create(Boid.prototype);
 Human.prototype.constructor = Human;
@@ -87,10 +87,10 @@ Human.prototype.disperse = function(humans) {
     boid.disV.x = boid.x - baricenterX;
     boid.disV.y = boid.y - baricenterY;
 
-    boid.run.ctx.fillStyle = `green`;
+    /* boid.run.ctx.fillStyle = `green`;
     boid.run.ctx.beginPath();
-    boid.run.ctx.arc(this.disV.x, this.disV.y, 6, 0, Math.PI * 2);
-    boid.run.ctx.fill();
+    boid.run.ctx.arc(baricenterX, baricenterY.y, 6, 0, Math.PI * 2);
+    boid.run.ctx.fill(); */
   });
 
   this.disV = this.disV.normalize(this.disVWeight); //normalize & weigh
@@ -107,8 +107,6 @@ Human.prototype.getTotalAcceleration = function() {
   return this.accV;
 };
 
-
-
 var TOP_KEY = 38;
 var SPACE = 32;
 
@@ -117,7 +115,9 @@ Human.prototype.setListeners = function() {
     if (event.keyCode === TOP_KEY) {
     } else if (event.keyCode == SPACE) {
       console.log("DISPERSE!");
-      this.accV.add(this.disperse(this.run.humans));
+      this.cohWeight = -10;
+      //this.cohV.multiplyScalar(0);
+      //this.accV.add(this.disperse(this.run.humans));
       //this.accV.normalize(this.maxSpeed);
     }
   }.bind(this);

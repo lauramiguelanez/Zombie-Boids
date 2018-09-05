@@ -5,7 +5,7 @@ function Zombie(x, y, run) {
   this.dPrey = [];
 
   this.folV = new Vector(0, 0);
-  this.folWeight = 50;
+  this.folWeight = 80;
   this.color = "#65b395";
 }
 Zombie.prototype = Object.create(Boid.prototype);

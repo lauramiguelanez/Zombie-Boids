@@ -6,6 +6,7 @@ function Run(canvasId) {
   this.boids = []; //population of boids
   this.zombies = [];
   this.humans = [];
+  this.obstacles = [];
   this.reset();
 }
 
@@ -56,6 +57,7 @@ Run.prototype.reset = function() {
     var zombie = new Zombie(x, y, this);
     this.zombies.push(zombie);
   }
+  this.generateObstacles(10);
 
   this.framesCounter = 0;
   this.score = 0;
@@ -86,6 +88,9 @@ Run.prototype.drawAll = function() {
   });
   this.humans.forEach(function(human) {
     human.draw();
+  });
+  this.obstacles.forEach(function(obstacle) {
+    obstacle.draw();
   });
   //this.drawScore();
 };
@@ -141,6 +146,11 @@ Run.prototype.displayScore = function() {
       this.start();
     }
   } */
+Run.prototype.generateObstacles = function(number){
+  for (var i =0; i<number; i++){
+    this.obstacles.push(new Obstacle(this));
+  }
+}
 
 /*   Run.prototype.isCollision = function() {
     // colisiones genéricas
