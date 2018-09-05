@@ -1,16 +1,14 @@
 //Define the canvas
-class Run {
-  constructor(canvasId) {
+function Run (canvasId) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
     this.fps = 10;
     this.boids = []; //population of boids
     this.reset();
-    this.d = [[], []];
   }
 
   //Start gets the animations going
-  start() {
+  Run.prototype.start = function() {
     this.interval = setInterval(
       // in each update do:
       function() {
@@ -30,19 +28,20 @@ class Run {
 
         //this.getDistances(this.d);
         //console.log(this.d);
+        this.display();
+
         this.moveAll();
         this.drawAll();
-        this.d = [[], []];
       }.bind(this),
-      100 / this.fps
+      1000 / this.fps
     );
   }
 
-  clear() {
+  Run.prototype.clear = function() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 
-  reset() {
+  Run.prototype.reset = function() {
     for (var i = 0; i < 50; i++) {
       //generate boids in random position
       var x = Math.random() * this.canvas.width;
@@ -55,28 +54,36 @@ class Run {
     this.score = 0;
   }
 
-  moveAll() {
+  Run.prototype.moveAll = function() {
     this.boids.forEach(function(boid) {
       boid.move();
     });
   }
 
-  drawAll() {
+  Run.prototype.drawAll = function() {
     this.boids.forEach(function(boid) {
       boid.draw();
     });
     //this.drawScore();
   }
 
-  //Get data
+  //Display
+  Run.prototype.display = function() {
+    this.displayboids();
+  }
 
- 
+  Run.prototype.displayboids = function(){
 
-  /*  stop() {
+  }
+
+
+
+
+  /*  Run.prototype.stop = function() {
     clearInterval(this.interval);
   } */
 
-  /*   gameOver() {
+  /*   Run.prototype.gameOver = function() {
     this.stop();
     if (confirm("GAME OVER. Run again?")) {
       this.reset();
@@ -84,7 +91,7 @@ class Run {
     }
   } */
 
-  /*   isCollision() {
+  /*   Run.prototype.isCollision = function() {
     // colisiones genéricas
     // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
     return this.obstacles.some(function (obstacle) {
@@ -94,9 +101,8 @@ class Run {
     }.bind(this));
   } */
 
-  /*   drawScore() {
+  /*   Run.prototype.drawScore = function() {
     this.ctx.font = "30px sans-serif";
     this.ctx.fillStyle = "black";
     this.ctx.fillText(Math.floor(this.score), 50, 50);
   } */
-}
