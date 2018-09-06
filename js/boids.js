@@ -93,12 +93,6 @@ Boid.prototype.cohere = function(flock) {
     });
     boid.cohV.x = baricenterX - boid.x;
     boid.cohV.y = baricenterY - boid.y;
-
-    /* boid.ctx.strokeStyle = "#fff";
-    boid.ctx.beginPath();
-    boid.ctx.moveTo(baricenterX, baricenterY);
-    boid.ctx.lineTo(boid.x, boid.y);
-    boid.ctx.stroke(); */
   });
   this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
   //console.log(this.cohV);
@@ -144,33 +138,37 @@ Boid.prototype.move = function(flock) {
   this.getDist(flock); //get distance to all others
   //console.log(this.dist);
 
-  this.dx = this.getTotalAcceleration().x;
-  this.dy = this.getTotalAcceleration().y;
-
-  isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
-
-  //this.dx += Math.random() * 2 - 1;
-  //this.dy += Math.random() * 2 - 1;
-  this.x += this.dx;
-  this.y += this.dy;
-  this.dist = []; //clean dist array
-
-  //console.log(this.x, this.y);
+  this.getTotalAcceleration().x;
+  this.getTotalAcceleration().y;
 
   //Boundaries
   if (this.x < 0) {
     this.x = this.run.canvas.width;
+    //this.accV.x *= -2;
   }
   if (this.x > this.run.canvas.width) {
     this.x = 0;
-    //this.accV.x *= (-1);
+    //this.accV.x *= -2;
   }
   if (this.y < 0) {
     this.y = this.run.canvas.height;
+    //this.accV.y *= -2;
   }
   if (this.y > this.run.canvas.height) {
     this.y = 0;
+    //this.accV.y *= -2;
   }
+
+  this.dx = this.accV.x;
+  this.dy = this.accV.y;
+  //this.dx += Math.random() * 2 - 1; //Some clumpsy realism
+  //this.dy += Math.random() * 2 - 1;
+
+  this.x += this.dx;
+  this.y += this.dy;
+  this.dist = []; //clean dist array
+  //console.log(this.x, this.y);
+  isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
 };
 Boid.prototype.draw = function() {
   var size = 3;

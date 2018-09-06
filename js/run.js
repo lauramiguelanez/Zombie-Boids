@@ -4,8 +4,8 @@ function Run(canvasId) {
   this.ctx = this.canvas.getContext("2d");
   this.fps = 10;
   this.boids = []; //population of boids
-  this.zombies = [];
-  this.humans = [];
+  this.zombies = []; //population of zombies
+  this.humans = []; //population of humans
   this.obstacles = [];
   this.reset();
 }
@@ -135,17 +135,17 @@ Run.prototype.displayScore = function() {
   spanScore.innerHTML = Math.floor(this.score);
 };
 
-/*  Run.prototype.stop = function() {
-    clearInterval(this.interval);
-  } */
+Run.prototype.stop = function() {
+  clearInterval(this.interval);
+};
 
-/*   Run.prototype.gameOver = function() {
-    this.stop();
-    if (confirm("GAME OVER. Run again?")) {
-      this.reset();
-      this.start();
-    }
-  } */
+Run.prototype.gameOver = function() {
+  this.stop();
+  if (confirm("THERE'S NOBODY ALIFE. Run again?")) {
+    this.reset();
+    this.start();
+  }
+};
 Run.prototype.generateObstacles = function(number) {
   for (var i = 0; i < number; i++) {
     this.obstacles.push(new Obstacle(this));
@@ -168,7 +168,6 @@ Run.prototype.isCollision = function() {
         }.bind(this)
       )
     ) {
-
     }
   });
 };

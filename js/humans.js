@@ -112,10 +112,25 @@ var SPACE = 32;
 
 Human.prototype.setListeners = function() {
   document.onkeypress = function(event) {
-    if (event.keyCode === TOP_KEY) {
-    } else if (event.keyCode == SPACE) {
+    if (event.keyCode == SPACE) {
       console.log("DISPERSE!");
-      this.cohWeight = -10;
+      this.sepWeight = 0;
+      this.cohWeight = 0;
+      this.aliWeight = 0;
+      console.log(this);
+      //this.accV.add(this.cohere(this.run.zombies));
+      //this.cohV.multiplyScalar(0);
+      //this.accV.add(this.disperse(this.run.humans));
+      //this.accV.normalize(this.maxSpeed);
+    }
+  }.bind(this);
+  document.onkeyup = function(event) {
+    if (event.keyCode == SPACE) {
+      console.log("REGROUP!");
+      this.sepWeight = 4;
+      this.cohWeight = 5;
+      this.aliWeight = 6;
+      //this.accV.add(this.cohere(this.run.zombies));
       //this.cohV.multiplyScalar(0);
       //this.accV.add(this.disperse(this.run.humans));
       //this.accV.normalize(this.maxSpeed);
