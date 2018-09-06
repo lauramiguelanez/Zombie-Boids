@@ -158,11 +158,12 @@ Run.prototype.welcome = function() {
 //Game over
 Run.prototype.gameOver = function() {
   this.stop();
-  run.welcome();
   $("#instructions").hide();
+  $("#canvas").hide();
   $("#intro").show();
   $("#keys").show();
   $("#welcome").show();
+  run.welcome();
   this.reset();
 };
 Run.prototype.stop = function() {
