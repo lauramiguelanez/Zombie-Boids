@@ -152,9 +152,9 @@ Run.prototype.welcome = function() {
   introDiv.addEventListener("click", function() {
     $("#intro").hide();
     $("#canvas").show();
+    $("#welcome").hide();
     $("#instructions").show();
     $("#keys").hide();
-    $("#welcome").hide;
     //$(".data").fadeIn()
     this.start();
   }.bind(this));
