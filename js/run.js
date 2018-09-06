@@ -146,36 +146,31 @@ Run.prototype.displayStatus = function(status, color) {
 };
 //Game Start
 Run.prototype.welcome = function() {
-  var mainScreen = document.getElementById("main-screen");
   var introDiv = document.getElementById("intro");
+  $("#instructions").hide();
+  //$(".data").fadeOut()
   introDiv.addEventListener("click", function() {
-    introDiv.setAttribute("display", "none");
-    introDiv.setAttribute("opacity", "0");
-    var myCanvas = document.createElement("CANVAS");
-    mainScreen.appendChild(myCanvas);
-    myCanvas.setAttribute("id", "canvasId");
-    myCanvas.setAttribute("width", "550");
-    myCanvas.setAttribute("height", "550");
-
-    console.log(this);
+    $("#intro").hide();
+    $("#canvas").show();
+    $("#instructions").show();
+    $("#keys").hide();
+    $("#welcome").hide;
+    //$(".data").fadeIn()
     this.start();
   }.bind(this));
-  //
 };
 //Game over
-Run.prototype.stop = function() {
-  clearInterval(this.interval);
-};
-
 Run.prototype.gameOver = function() {
   this.stop();
   run.welcome();
-  //this.reset();
-
-/*   if (confirm("THERE'S NOBODY ALIFE. Run again?")) {
-    this.reset();
-    this.start();
-  } */
+  $("#intro").show();
+  $("#instructions").hide();
+  $("#keys").show();
+  $("#welcome").show();
+  this.reset();
+};
+Run.prototype.stop = function() {
+  clearInterval(this.interval);
 };
 
 //Colisions

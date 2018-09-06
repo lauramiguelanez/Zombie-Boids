@@ -10,13 +10,20 @@ body {
   font-family: "Nova Cut", cursive;
   max-height: 100%;
   overflow: hidden;
+  color: #ff3600;
 }
 canvas {
   display: none;
   border: 4px solid #ff3600;
 }
+h1{
+  font-family: "Nova Cut", cursive;
+  font-size: 60px;
+}
+h3{
+  font-size: 20px;
+}
 p {
-  color: #ff3600;
   display: inline-block;
   text-align: center;
 }
@@ -52,6 +59,7 @@ p {
 .data-bottom {
 }
 aside{
+  color: white;
   width: 220px;
   display: flex;
   flex-direction: column;
@@ -59,7 +67,7 @@ aside{
   text-align: left;
 }
 .white{
-  color:white;
+  color: white;
 }
 #cheat-sheet p{
   margin: 5px;
@@ -73,13 +81,11 @@ aside p{
 }
 #intro{
   color: black;
-  /* background-color: #ff3600; */
   border: 4px solid #ff3600;
   background-image: url("../img/cover.png");
   width: 550px;
   height: 550px;
   margin: 0;
-  /* padding: 30px; */
   text-align: center;
   font-family: 'Nova Square', cursive;
   font-size: 15px;
@@ -91,10 +97,18 @@ aside p{
 #intro p{
   padding-left:20px;
   padding-right:20px;
-  color: black;
   padding-bottom:15px;
   margin:5px;
 }
-.keys{
-  /* font-size:12px; */
+#keys{
+  font-family: 'Nova Square', cursive;
+  font-size:13px;
+}
+#welcome{
+  font-family: 'Nova Square', cursive;
+  font-size:13px;
+}
+
+.larger{
+  font-size:16px;
 }

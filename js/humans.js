@@ -99,7 +99,7 @@ Human.prototype.setListeners = function() {
 
     //TESTUDO
     if (event.keyCode == S_KEY) {
-      console.log("TESTUDO!");
+      console.log("SQUAD!");
       this.forEach(function(human, index, humans) {
         human.color = actionColor;
         human.range = 50;
