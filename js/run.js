@@ -48,14 +48,14 @@ Run.prototype.reset = function() {
     var boid = new Boid(x, y, this);
     this.boids.push(boid);
   } */
-  for (var i = 0; i < 55; i++) {
+  for (var i = 0; i < 60; i++) {
     //generate Humans
     var x = Math.random() * this.canvas.width;
     var y = Math.random() * this.canvas.height;
     var human = new Human(x, y, this);
     this.humans.push(human);
   }
-  for (var i = 0; i < 15; i++) {
+  for (var i = 0; i < 10; i++) {
     //generate Zombies
     var x = Math.random() * this.canvas.width;
     var y = Math.random() * this.canvas.height;
@@ -79,9 +79,6 @@ Run.prototype.moveAll = function() {
     human.move(flock);
   });
   this.die(this.humans, this.zombies);
-  /* this.humans.forEach(function(human){
-    human.die(this.humans, this.zombies);
-  }.bind(this)); */
 };
 
 Run.prototype.drawAll = function() {
@@ -148,13 +145,12 @@ Run.prototype.displayStatus = function(status, color) {
 Run.prototype.welcome = function() {
   var introDiv = document.getElementById("intro");
   $("#instructions").hide();
-  //$(".data").fadeOut()
   introDiv.addEventListener("click", function() {
     $("#intro").hide();
-    $("#canvas").show();
-    $("#welcome").hide();
-    $("#instructions").show();
     $("#keys").hide();
+    $("#welcome").hide();
+    $("#canvas").show();
+    $("#instructions").show();
     //$(".data").fadeIn()
     this.start();
   }.bind(this));
@@ -163,8 +159,8 @@ Run.prototype.welcome = function() {
 Run.prototype.gameOver = function() {
   this.stop();
   run.welcome();
-  $("#intro").show();
   $("#instructions").hide();
+  $("#intro").show();
   $("#keys").show();
   $("#welcome").show();
   this.reset();

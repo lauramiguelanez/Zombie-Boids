@@ -131,7 +131,7 @@ Boid.prototype.getTotalAcceleration = function() {
   return this.accV;
 };
 Boid.prototype.addToAcceleration = function() {
-  
+
 };
 //Animation
 Boid.prototype.move = function(flock) {
@@ -158,18 +158,16 @@ Boid.prototype.move = function(flock) {
     this.y = 0;
     //this.accV.y *= -2;
   }
-
   this.dx = this.accV.x;
   this.dy = this.accV.y;
   //this.dx += Math.random() * 2 - 1; //Some clumpsy realism
   //this.dy += Math.random() * 2 - 1;
-
   this.x += this.dx;
   this.y += this.dy;
   this.dist = []; //clean dist array
-  //console.log(this.x, this.y);
   isNaN(this.x) || isNaN(this.y) ? alert("There are NaN") : 0;
 };
+
 Boid.prototype.draw = function() {
   var size = 3;
   this.run.ctx.fillStyle = `${this.color}`;

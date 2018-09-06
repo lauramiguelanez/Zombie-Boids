@@ -10,7 +10,7 @@ function Human(x, y, run) {
   this.escWeight = 80;
   this.disVWeight = 100;
   //Aesthetics
-  this.color = "#FFB6C1";
+  this.color = "white";
   //Interacction
   this.setListeners();
 }
@@ -87,8 +87,6 @@ Human.prototype.setListeners = function() {
       this.forEach(function(human, index, humans) {
         human.color = actionColor;
         human.range = 50;
-        human.minD = 15; //more distance between
-        human.reach = 60;
         human.cohWeight = -100;
         human.aliWeight = 0;
         human.sepWeight = 0;
@@ -97,20 +95,19 @@ Human.prototype.setListeners = function() {
       this[0].run.displayStatus("Disperse, you fools!", actionColor);
     }
 
-    //TESTUDO
+    //SQUAD
     if (event.keyCode == S_KEY) {
       console.log("SQUAD!");
       this.forEach(function(human, index, humans) {
         human.color = actionColor;
         human.range = 50;
         human.minD = 20; //more distance between
-        human.reach = 60;
         human.cohWeight = 0;
         human.aliWeight = 0;
         human.sepWeight = -10;
         human.escWeight = 20;
       });
-      this[0].run.displayStatus("Make yourself a ball!", actionColor);
+      this[0].run.displayStatus("Ocuppy as less space as possible!", actionColor);
     }
     //RUN SOLO
     if (event.keyCode == A_KEY) {
@@ -133,7 +130,7 @@ Human.prototype.setListeners = function() {
   document.onkeyup = function(event) {
     console.log("REGROUP!");
     this.forEach(function(human, index, humans) {
-      human.color = "#FFB6C1";
+      human.color = "white";
       human.range = 100;
       human.minD = 15;
       human.reach = 60;
