@@ -145,7 +145,7 @@ Run.prototype.displayStatus = function(status, color) {
 Run.prototype.welcome = function() {
   var introDiv = document.getElementById("intro");
   $("#instructions").hide();
-  $("#game-over").hide(); 
+  //$("#game-over").hide(); 
   introDiv.addEventListener("click", function() {
     $("#intro").hide();
     $("#keys").hide();
@@ -161,7 +161,8 @@ Run.prototype.gameOver = function() {
   this.stop();
   $("#instructions").hide();
   $("#canvas").hide();
-  $("#game-over").show();
+  //$("#game-over").show();
+  $("#intro").show();
   $("#keys").show();
   $("#welcome").show();
   run.welcome();
