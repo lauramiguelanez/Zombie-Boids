@@ -7,7 +7,7 @@ function Boid(x, y, run) {
   this.dx = 0;
   this.dy = 0;
   // Rage
-  this.range = 100;
+  this.range = 100; //100
   this.minD = 15;
   this.dist = [];
   //speed

@@ -134,7 +134,14 @@ Run.prototype.displayScore = function() {
   var spanScore = document.getElementById("score");
   spanScore.innerHTML = Math.floor(this.score);
 };
+Run.prototype.displayStatus = function(status,color){
+  var pStatus = document.getElementById("status=bar");
+  pStatus.innerHTML = status;
+  pStatus.style.color = color;
+}
 
+
+//Game over
 Run.prototype.stop = function() {
   clearInterval(this.interval);
 };

@@ -111,29 +111,39 @@ var TOP_KEY = 38;
 var SPACE = 32;
 
 Human.prototype.setListeners = function() {
-  document.onkeypress = function(event) {
+  document.onkeydown = function(event) {
+    //"this = humans" within this function
     if (event.keyCode == SPACE) {
       console.log("DISPERSE!");
-      this.sepWeight = 0;
-      this.cohWeight = 0;
-      this.aliWeight = 0;
-      console.log(this);
-      //this.accV.add(this.cohere(this.run.zombies));
-      //this.cohV.multiplyScalar(0);
-      //this.accV.add(this.disperse(this.run.humans));
-      //this.accV.normalize(this.maxSpeed);
+      this.forEach(function(human, index, humans) {
+        human.color = "blue";
+        human.range = 100;
+        human.minD = 10; //more distance between
+        human.cohWeight = -1;
+        human.aliWeight = 0;
+        human.sepWeight = 40;
+        human.escWeight = 0;
+      });
+      this[0].run.displayStatus("Disperse, you fools!", "blue");
     }
-  }.bind(this);
+  }.bind(this.run.humans);
+
+
+  //Back to normal
   document.onkeyup = function(event) {
+    //"this = humans" within this function
     if (event.keyCode == SPACE) {
       console.log("REGROUP!");
-      this.sepWeight = 4;
-      this.cohWeight = 5;
-      this.aliWeight = 6;
-      //this.accV.add(this.cohere(this.run.zombies));
-      //this.cohV.multiplyScalar(0);
-      //this.accV.add(this.disperse(this.run.humans));
-      //this.accV.normalize(this.maxSpeed);
+      this.forEach(function(human, index, humans) {
+        human.color = "#FFB6C1";
+        human.range = 100;
+        human.minD = 15; 
+        human.cohWeight = 5;
+        human.aliWeight = 6;
+        human.sepWeight = 4;
+        human.escWeight = 80;
+      });
+      this[0].run.displayStatus("Wait for my orders", "#ff3600"); //Boids don't cry
     }
-  }.bind(this);
+  }.bind(this.run.humans);
 };
