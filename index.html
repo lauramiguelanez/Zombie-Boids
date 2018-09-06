@@ -15,24 +15,42 @@
 
 <body>
     <aside id="aside-left">
-        <div>
+        <div class="white">
             <p>Choose your Shoutouts wisely</p>
         </div>
-        <div id="cheat-sheet">
-            <p>press D => Disperse</p>
-            <p>press S => Squad</p>
-            <p>press A => Alone</p>
+        <div id="cheat-sheet" class="white">
+            <p>press D for DISPERSE</p>
+            <p>press S for Squad</p>
+            <p>press A for Alone</p>
         </div>
     </aside>
     <main id="window">
-        <div class="data data-top">
-            <p>Zombie Boids</p>
+        <div class="data data-top"><p>Zombie Boids</p>
         </div>
         <div class="data-h-container">
             <div class="data data-left">
                 <p>Score <span id="score"></span></p>
             </div>
-            <canvas id="canvas" width="550" height="550"></canvas>
+            <div id="main-screen">
+                <div id="intro">
+                    <div>
+                        <p>Zombies could be the only people that love you for your brains.<br>
+                            But if you love life more than nerds you will have to run.</p>
+                    <p>The only way to escape from the eternal death is to work as a team. 
+                        An there are a few strategies you can shoutout to your fellows and luckily you will survive.</p>
+                    <p>But remember! All your team members trust you so much, they would all follow your orders. 
+                        Choose the best strategy for less damage.</p>
+                    </div>
+                    <div id="keys">
+                        <p>Press D for DISPERSE<br>Avoid being in a group and diffuse zombie attention</p>
+                        <p>Press S for SQUAD<br>Squeeze yourselves together and fit amidst the hordes</p>
+                        <p>Press A for ALONE<br>Each one would try to avoid zombies by themselves</p>
+                    </div>
+                        <p>Now... Run!</p>
+                        <p>Click to start</p>
+                </div>
+                <canvas id="canvas" width="550" height="550"></canvas>
+            </div>
             <div class="data data-right">
                 <p>There are <span id="boids-left"></span> humans left</p>
             </div>
@@ -42,7 +60,7 @@
         </div>
     </main>
     <aside id="aside-right">
-    <!--     <div id="thriller">
+        <!-- <div id="thriller">
             <p>It's close to midnight<br> Something evil's a-lurkin'in the dark<br> Under the moonlight<br> You see a sight
                 that almost stops your heart<br> You try to scream<br> But terror takes the sound before you make it<br>                You
                 start to freeze<br> As horror looks you right between the eyes<br> You're paralyzed</p>

@@ -7,6 +7,7 @@ function Run(canvasId) {
   this.zombies = []; //population of zombies
   this.humans = []; //population of humans
   this.obstacles = [];
+  //
   this.reset();
 }
 
@@ -143,7 +144,24 @@ Run.prototype.displayStatus = function(status, color) {
   pStatus.innerHTML = status;
   pStatus.style.color = color;
 };
+//Game Start
+Run.prototype.welcome = function() {
+  var mainScreen = document.getElementById("main-screen");
+  var introDiv = document.getElementById("intro");
+  introDiv.addEventListener("click", function() {
+    introDiv.setAttribute("display", "none");
+    introDiv.setAttribute("opacity", "0");
+    var myCanvas = document.createElement("CANVAS");
+    mainScreen.appendChild(myCanvas);
+    myCanvas.setAttribute("id", "canvasId");
+    myCanvas.setAttribute("width", "550");
+    myCanvas.setAttribute("height", "550");
 
+    console.log(this);
+    this.start();
+  }.bind(this));
+  //
+};
 //Game over
 Run.prototype.stop = function() {
   clearInterval(this.interval);
@@ -151,10 +169,13 @@ Run.prototype.stop = function() {
 
 Run.prototype.gameOver = function() {
   this.stop();
-  if (confirm("THERE'S NOBODY ALIFE. Run again?")) {
+  run.welcome();
+  //this.reset();
+
+/*   if (confirm("THERE'S NOBODY ALIFE. Run again?")) {
     this.reset();
     this.start();
-  }
+  } */
 };
 
 //Colisions
