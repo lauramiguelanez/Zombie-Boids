@@ -47,9 +47,24 @@ p {
   width: 50px;
   writing-mode: vertical-lr;
   text-orientation: mixed;
+  transform: rotate(180deg);
 }
 .data-bottom {
 }
 aside{
   width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
+#cheat-sheet p{
+  margin: 5px;
+  font-size: 12px;
+}
+#thriller p{
+  font-size: 5px;
+}
+aside p{
+  text-align: left;
 }

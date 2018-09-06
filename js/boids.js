@@ -3,26 +3,25 @@ function Boid(x, y, run) {
   //Each BOID is represented by a position
   this.x = x;
   this.y = y;
-  //delta movimiento
+  //Delta movimiento
   this.dx = 0;
   this.dy = 0;
-  // Rage
+  //Range
   this.range = 100; //100
   this.minD = 15;
   this.dist = [];
-  //speed
+  //Speed
   this.maxSpeed = (5, 5);
-  //forces
+  //Forces
   this.sepV = new Vector(0, 0);
   this.cohV = new Vector(0, 0);
   this.aliV = new Vector(0, 0);
   this.accV = new Vector(0, 0); //(Math.random() * 2 - 1, Math.random() * 2 - 1);
   this.dirV = new Vector(this.x - this.dx, this.y - this.dy);
-  //forces equilibrium
+  //Forces equilibrium
   this.sepWeight = 4;
   this.cohWeight = 5;
   this.aliWeight = 6;
-
   //Aesthetics
   this.color = "#ff3600"; //"#ff3600" "white"
 }
@@ -95,7 +94,6 @@ Boid.prototype.cohere = function(flock) {
     boid.cohV.y = baricenterY - boid.y;
   });
   this.cohV = this.cohV.normalize(this.cohWeight); //normalize & weigh
-  //console.log(this.cohV);
   return this.cohV;
 };
 Boid.prototype.aligned = function(flock) {
@@ -123,7 +121,6 @@ Boid.prototype.aligned = function(flock) {
     boid.aliV.y = aliY;
   });
   this.aliV = this.aliV.normalize(this.aliWeight); //normalize & weigh
-  //console.log(this.aliV);
   return this.aliV;
 };
 Boid.prototype.getTotalAcceleration = function() {
@@ -132,6 +129,9 @@ Boid.prototype.getTotalAcceleration = function() {
   this.accV.add(this.aligned(this.run.boids));
   this.accV.normalize(this.maxSpeed);
   return this.accV;
+};
+Boid.prototype.addToAcceleration = function() {
+  
 };
 //Animation
 Boid.prototype.move = function(flock) {

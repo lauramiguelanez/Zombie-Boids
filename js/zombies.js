@@ -1,11 +1,12 @@
 function Zombie(x, y, run) {
   Boid.call(this, x, y, run);
-  
+  //Range
   this.reach = 20;
   this.dPrey = [];
-
+  //Forces & weights
   this.folV = new Vector(0, 0);
   this.folWeight = 80;
+  //Aesthetics
   this.color = "#65b395";
 }
 Zombie.prototype = Object.create(Boid.prototype);
@@ -28,19 +29,19 @@ Zombie.prototype.getTarget = function(targets) {
 };
 
 Zombie.prototype.follow = function(targets) {
-    this.dPrey = [];
+  this.dPrey = [];
   this.getTarget(targets); //get distances to each boid of the target flock
   var feast = 0; //nomber of targets at reach
-  targets
-.forEach(function(target, index, targets) {
+  targets.forEach(
+    function(target, index, targets) {
       if (this.dPrey[index] > 0 && this.dPrey[index] < this.reach) {
         // If the target is within the Zombie's reach
         this.folV.x += target.x;
         this.folV.y += target.y;
         feast++;
       }
-    }
-    .bind(this));
+    }.bind(this)
+  );
   if (feast != 0) {
     this.folV.x /= feast;
     this.folV.y /= feast;

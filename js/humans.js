@@ -1,16 +1,17 @@
 function Human(x, y, run) {
   Boid.call(this, x, y, run);
-
+  //Range
   this.reach = 60;
   this.chase = [];
   this.painD = 6;
-
+  //Forces & weights
   this.escV = new Vector(0, 0);
   this.disV = new Vector(0, 0);
   this.escWeight = 80;
   this.disVWeight = 100;
+  //Aesthetics
   this.color = "#FFB6C1";
-
+  //Interacction
   this.setListeners();
 }
 Human.prototype = Object.create(Boid.prototype);
@@ -60,44 +61,6 @@ Human.prototype.escape = function(targets) {
   return this.escV;
 };
 
-Human.prototype.disperse = function(humans) {
-  humans.forEach(function(boid, ind, boids) {
-    var neighbours = 0;
-    var baricenterX = 0;
-    var baricenterY = 0;
-    boids.forEach(function(other, index, others) {
-      if (boid.dist[index] > 0 && boid.dist[index] < boid.range) {
-        if (boid != other) {
-          baricenterX += other.x;
-          baricenterY += other.y;
-          neighbours++;
-        } else {
-          baricenterX = 0;
-          baricenterY = 0;
-        }
-      }
-      if (neighbours != 0) {
-        baricenterX /= neighbours;
-        baricenterY /= neighbours;
-      } else {
-        baricenterX = 0;
-        baricenterY = 0;
-      }
-    });
-    boid.disV.x = boid.x - baricenterX;
-    boid.disV.y = boid.y - baricenterY;
-
-    /* boid.run.ctx.fillStyle = `green`;
-    boid.run.ctx.beginPath();
-    boid.run.ctx.arc(baricenterX, baricenterY.y, 6, 0, Math.PI * 2);
-    boid.run.ctx.fill(); */
-  });
-
-  this.disV = this.disV.normalize(this.disVWeight); //normalize & weigh
-  //console.log(this.cohV);
-  return this.disV;
-};
-
 Human.prototype.getTotalAcceleration = function() {
   this.accV.add(this.separate(this.run.humans));
   this.accV.add(this.cohere(this.run.humans));
@@ -106,7 +69,6 @@ Human.prototype.getTotalAcceleration = function() {
   this.accV.normalize(this.maxSpeed);
   return this.accV;
 };
-
 
 //Interaction variables
 var TOP_KEY = 38;
@@ -150,22 +112,21 @@ Human.prototype.setListeners = function() {
       });
       this[0].run.displayStatus("Make yourself a ball!", actionColor);
     }
-       //RUN SOLO
-       if (event.keyCode == A_KEY) {
-        console.log("RUN SOLO!");
-        this.forEach(function(human, index, humans) {
-          human.color = actionColor;
-          human.range = 50;
-          human.minD = 20; //more distance between
-          human.reach = 10;
-          human.cohWeight = 0;
-          human.aliWeight = 0;
-          human.sepWeight = 5;
-          human.escWeight = 300;
-        });
-        this[0].run.displayStatus("Every man for himself!", actionColor);
-      }
-
+    //RUN SOLO
+    if (event.keyCode == A_KEY) {
+      console.log("RUN SOLO!");
+      this.forEach(function(human, index, humans) {
+        human.color = actionColor;
+        human.range = 50;
+        human.minD = 20; //more distance between
+        human.reach = 20;
+        human.cohWeight = 0;
+        human.aliWeight = 0;
+        human.sepWeight = 5;
+        human.escWeight = 300;
+      });
+      this[0].run.displayStatus("Every man for himself!", actionColor);
+    }
   }.bind(this.run.humans);
 
   //Back to normal

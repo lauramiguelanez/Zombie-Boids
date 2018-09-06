@@ -26,6 +26,10 @@ Run.prototype.start = function() {
       this.display();
       this.moveAll();
       this.drawAll();
+
+      if (this.humans.length == 0) {
+        this.gameOver();
+      }
     }.bind(this),
     1000 / this.fps
   );
@@ -92,7 +96,6 @@ Run.prototype.drawAll = function() {
   this.obstacles.forEach(function(obstacle) {
     obstacle.draw();
   });
-  //this.drawScore();
 };
 
 Run.prototype.die = function(humans, zombies) {
@@ -110,8 +113,8 @@ Run.prototype.die = function(humans, zombies) {
         human.run.ctx.beginPath();
         human.run.ctx.arc(human.x, human.y, 8, 0, Math.PI * 2);
         human.run.ctx.fill();
-
-        zombies.push(new Zombie(human.x, human.y, human.run)); //Die & resurrect
+        //Die & resurrect
+        zombies.push(new Zombie(human.x, human.y, human.run));
         humans.splice(index, 1);
       }
     });
@@ -124,22 +127,22 @@ Run.prototype.display = function() {
   this.displayNboids();
   this.displayScore();
 };
-
 Run.prototype.displayNboids = function() {
   var spanNboids = document.getElementById("boids-left");
   var nBoids = this.humans.length;
   spanNboids.innerHTML = nBoids;
+  spanNboids.style.color = "white";
 };
 Run.prototype.displayScore = function() {
   var spanScore = document.getElementById("score");
   spanScore.innerHTML = Math.floor(this.score);
+  spanScore.style.color = "white";
 };
-Run.prototype.displayStatus = function(status,color){
+Run.prototype.displayStatus = function(status, color) {
   var pStatus = document.getElementById("status=bar");
   pStatus.innerHTML = status;
   pStatus.style.color = color;
-}
-
+};
 
 //Game over
 Run.prototype.stop = function() {
@@ -153,6 +156,8 @@ Run.prototype.gameOver = function() {
     this.start();
   }
 };
+
+//Colisions
 Run.prototype.generateObstacles = function(number) {
   for (var i = 0; i < number; i++) {
     this.obstacles.push(new Obstacle(this));
