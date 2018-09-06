@@ -107,43 +107,80 @@ Human.prototype.getTotalAcceleration = function() {
   return this.accV;
 };
 
+
+//Interaction variables
 var TOP_KEY = 38;
 var SPACE = 32;
+var A_KEY = 65;
+var S_KEY = 83;
+var D_KEY = 68;
+var actionColor = "#0092FF";
 
 Human.prototype.setListeners = function() {
+  //"this = humans" within "on key" function using bind
   document.onkeydown = function(event) {
-    //"this = humans" within this function
-    if (event.keyCode == SPACE) {
+    //DISPERSE
+    if (event.keyCode == D_KEY) {
       console.log("DISPERSE!");
       this.forEach(function(human, index, humans) {
-        human.color = "blue";
-        human.range = 100;
-        human.minD = 10; //more distance between
-        human.cohWeight = -1;
+        human.color = actionColor;
+        human.range = 50;
+        human.minD = 15; //more distance between
+        human.reach = 60;
+        human.cohWeight = -100;
         human.aliWeight = 0;
-        human.sepWeight = 40;
-        human.escWeight = 0;
+        human.sepWeight = 0;
+        human.escWeight = 100;
       });
-      this[0].run.displayStatus("Disperse, you fools!", "blue");
+      this[0].run.displayStatus("Disperse, you fools!", actionColor);
     }
-  }.bind(this.run.humans);
 
+    //TESTUDO
+    if (event.keyCode == S_KEY) {
+      console.log("TESTUDO!");
+      this.forEach(function(human, index, humans) {
+        human.color = actionColor;
+        human.range = 50;
+        human.minD = 20; //more distance between
+        human.reach = 60;
+        human.cohWeight = 0;
+        human.aliWeight = 0;
+        human.sepWeight = -10;
+        human.escWeight = 20;
+      });
+      this[0].run.displayStatus("Make yourself a ball!", actionColor);
+    }
+       //RUN SOLO
+       if (event.keyCode == A_KEY) {
+        console.log("RUN SOLO!");
+        this.forEach(function(human, index, humans) {
+          human.color = actionColor;
+          human.range = 50;
+          human.minD = 20; //more distance between
+          human.reach = 10;
+          human.cohWeight = 0;
+          human.aliWeight = 0;
+          human.sepWeight = 5;
+          human.escWeight = 300;
+        });
+        this[0].run.displayStatus("Every man for himself!", actionColor);
+      }
+
+  }.bind(this.run.humans);
 
   //Back to normal
   document.onkeyup = function(event) {
-    //"this = humans" within this function
-    if (event.keyCode == SPACE) {
-      console.log("REGROUP!");
-      this.forEach(function(human, index, humans) {
-        human.color = "#FFB6C1";
-        human.range = 100;
-        human.minD = 15; 
-        human.cohWeight = 5;
-        human.aliWeight = 6;
-        human.sepWeight = 4;
-        human.escWeight = 80;
-      });
-      this[0].run.displayStatus("Wait for my orders", "#ff3600"); //Boids don't cry
-    }
+    console.log("REGROUP!");
+    this.forEach(function(human, index, humans) {
+      human.color = "#FFB6C1";
+      human.range = 100;
+      human.minD = 15;
+      human.reach = 60;
+      human.cohWeight = 5;
+      human.aliWeight = 6;
+      human.sepWeight = 4;
+      human.escWeight = 80;
+    });
+    this[0].run.displayStatus("Wait for my orders", "#ff3600"); //Boids don't cry
   }.bind(this.run.humans);
 };

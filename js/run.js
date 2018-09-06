@@ -21,7 +21,7 @@ Run.prototype.start = function() {
       if (this.framesCounter > 1000) {
         this.framesCounter = 0;
       }
-      this.score += 0.1;
+      this.score += 0.5;
 
       this.display();
       this.moveAll();
@@ -108,7 +108,7 @@ Run.prototype.die = function(humans, zombies) {
         console.log("Someone has been killed");
         human.run.ctx.fillStyle = "#ff3600";
         human.run.ctx.beginPath();
-        human.run.ctx.arc(human.x, human.y, 7, 0, Math.PI * 2);
+        human.run.ctx.arc(human.x, human.y, 8, 0, Math.PI * 2);
         human.run.ctx.fill();
 
         zombies.push(new Zombie(human.x, human.y, human.run)); //Die & resurrect
@@ -178,9 +178,3 @@ Run.prototype.isCollision = function() {
     }
   });
 };
-
-/*   Run.prototype.drawScore = function() {
-    this.ctx.font = "30px sans-serif";
-    this.ctx.fillStyle = "black";
-    this.ctx.fillText(Math.floor(this.score), 50, 50);
-  } */
