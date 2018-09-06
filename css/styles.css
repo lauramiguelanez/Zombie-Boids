@@ -79,7 +79,7 @@ aside{
 aside p{
   text-align: left;
 }
-#intro{
+.cover{
   color: black;
   border: 4px solid #ff3600;
   background-image: url("../img/cover.png");
@@ -93,6 +93,8 @@ aside p{
   flex-direction: column;
   justify-content: center;
   text-align:center;
+}
+#intro{
 }
 #intro p{
   padding-left:20px;
@@ -111,4 +113,8 @@ aside p{
 
 .larger{
   font-size:16px;
+}
+
+#game-over{
+
 }
