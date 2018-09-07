@@ -2,7 +2,7 @@
 function Run(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
-  this.fps = 10;
+  this.fps = 24;
   this.boids = []; //population of boids
   this.zombies = []; //population of zombies
   this.humans = []; //population of humans
@@ -62,8 +62,6 @@ Run.prototype.reset = function() {
     var zombie = new Zombie(x, y, this);
     this.zombies.push(zombie);
   }
-  //this.generateObstacles(10);
-
   this.framesCounter = 0;
   this.score = 0;
 };
@@ -162,39 +160,18 @@ Run.prototype.gameOver = function() {
   $("#instructions").hide();
   $("#canvas").hide();
   //$("#game-over").show();
+  this.displayOver();
   $("#intro").show();
   $("#keys").show();
   $("#welcome").show();
   run.welcome();
   this.reset();
 };
+Run.prototype.displayOver = function(){
+  document.getElementById("title").innerHTML = "Everybody is dead";
+  document.getElementById("t1").innerHTML = "Good job...but..";
+  document.getElementById("t2").innerHTML = "Click to Try Again";
+}
 Run.prototype.stop = function() {
   clearInterval(this.interval);
-};
-
-//Colisions
-Run.prototype.generateObstacles = function(number) {
-  for (var i = 0; i < number; i++) {
-    this.obstacles.push(new Obstacle(this));
-  }
-};
-
-Run.prototype.isCollision = function() {
-  // colisiones genéricas
-  // (p.x + p.w > o.x && o.x + o.w > p.x && p.y + p.h > o.y && o.y + o.h > p.y )
-  this.humans.forEach(function(human) {
-    if (
-      this.obstacles.some(
-        function(obstacle) {
-          return (
-            human.x >= obstacle.x &&
-            human.x <= obstacle.x + obstacle.w &&
-            human.y >= obstacle.y &&
-            human.y <= obstacle.y + obstacle.h
-          );
-        }.bind(this)
-      )
-    ) {
-    }
-  });
 };

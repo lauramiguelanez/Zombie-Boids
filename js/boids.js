@@ -11,7 +11,7 @@ function Boid(x, y, run) {
   this.minD = 15;
   this.dist = [];
   //Speed
-  this.maxSpeed = (5, 5);
+  this.maxSpeed = (4, 4);
   //Forces
   this.sepV = new Vector(0, 0);
   this.cohV = new Vector(0, 0);
@@ -130,13 +130,9 @@ Boid.prototype.getTotalAcceleration = function() {
   this.accV.normalize(this.maxSpeed);
   return this.accV;
 };
-Boid.prototype.addToAcceleration = function() {
-
-};
 //Animation
 Boid.prototype.move = function(flock) {
   this.getDist(flock); //get distance to all others
-  //console.log(this.dist);
 
   this.getTotalAcceleration().x;
   this.getTotalAcceleration().y;
